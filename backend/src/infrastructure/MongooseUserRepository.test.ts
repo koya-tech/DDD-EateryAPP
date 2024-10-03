@@ -44,13 +44,13 @@ describe('MongooseUserRepository', () => {
     );
 
     test('can get info which repo did save', async () => {
-        await repository.save(user);
+        await repository.register(user);
 
-        const userList = await repository.read();
+        const userList = await repository.get();
         if (userList === null) {
             throw new Error('failed to read UserInfo');
         }
-        const createdEntity = await repository.findById(userList[0].userId);
+        const createdEntity = await repository.getById(userList[0].userId);
 
         expect(createdEntity?.userName.equals(userName)).toBeTruthy();
         expect(createdEntity?.userPassword.equals(userPassword)).toBeTruthy();
@@ -58,9 +58,9 @@ describe('MongooseUserRepository', () => {
     });
 
     test('can update about user info', async () => {
-        await repository.save(user);
+        await repository.register(user);
 
-        const userList = await repository.read();
+        const userList = await repository.get();
         if (userList === null) {
             throw new Error('failed to read UserInfo');
         }
@@ -81,21 +81,21 @@ describe('MongooseUserRepository', () => {
         );
         await repository.update(updatedUser);
 
-        const createdEntity = await repository.findById(userList[0].userId);
+        const createdEntity = await repository.getById(userList[0].userId);
         expect(createdEntity?.userName.equals(updatedUserName)).toBeTruthy();
         expect(createdEntity?.userPassword.equals(updatedUserPassword)).toBeTruthy();
         expect(createdEntity?.userImage.equals(updatedUserImage)).toBeTruthy();
     });
 
     test('can delete user info', async () => {
-        await repository.save(user);
+        await repository.register(user);
 
-        const userList = await repository.read();
+        const userList = await repository.get();
         if (userList === null) {
             throw new Error('failed to read UserInfo');
         }
         await repository.deleteById(userList[0].userId);
-        const userListAfterDelete = await repository.read();
+        const userListAfterDelete = await repository.get();
         expect(userListAfterDelete).toBeNull();
     });
 });

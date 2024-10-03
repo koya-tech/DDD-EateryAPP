@@ -9,7 +9,7 @@ export default class UserDomainService {
 
     // already exist same data → true, no exist → false
     async IsUserNameDuplicate(userId: UserId) {
-        const duplicateUserName = await this.userRepository.findById(userId);
+        const duplicateUserName = await this.userRepository.getById(userId);
         const isDuplicateUserName = !!duplicateUserName;
         return isDuplicateUserName;
     }
@@ -18,11 +18,11 @@ export default class UserDomainService {
         if (await this.IsUserNameDuplicate(user.userId)) {
             throw new Error('UserName is already in use.');
         }
-        await this.userRepository.save(user);
+        await this.userRepository.register(user);
     }
 
     async deleteUser(userId: UserId): Promise<void> {
-        const targetUser = await this.userRepository.findById(userId);
+        const targetUser = await this.userRepository.getById(userId);
         if (!targetUser) {
             throw new Error('User not found.');
         }
@@ -30,10 +30,18 @@ export default class UserDomainService {
     }
 
     async updateUser(user: User): Promise<void> {
-        const targetUser = await this.userRepository.findById(user.userId);
+        const targetUser = await this.userRepository.getById(user.userId);
         if (!targetUser) {
             throw new Error('User not found.');
         }
         await this.userRepository.update(user);
+    }
+
+    async getUser(userId: UserId): Promise<User> {
+        const targetUser = await this.userRepository.getById(userId);
+        if (!targetUser) {
+            throw new Error('User not found.');
+        }
+        return targetUser;
     }
 }

@@ -32,7 +32,7 @@ export const updateUser = User.create(
 
 // This is a sample for different test data
 const differentSaltRounds = 10;
-const differentPassword = 'updatePassword';
+const differentPassword = 'differentPassword';
 const differentSalt = bcrypt.genSaltSync(differentSaltRounds);
 const differentHashedPassword = bcrypt.hashSync(differentPassword, differentSalt);
 export const differentUser = User.create(

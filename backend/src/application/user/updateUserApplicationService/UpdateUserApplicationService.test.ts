@@ -1,7 +1,7 @@
 import InMemoryUserRepository from '../../../infrastructure/shared/InMemoryUserRepository';
 import UpdateUserApplicationService, { UpdateUserCommand } from './UpdateUserApplicationService';
 import RegisterUserApplicationService, { RegisterUserCommand } from '../registerUserApplicationService/RegisterUserApplicationService';
-import { differentUser, sampleUser, updateUser } from '../testUserData';
+import { sampleUser, updateUser } from '../testUserData';
 
 describe('UpdateUserApplicationService', () => {
     const repository = new InMemoryUserRepository();
@@ -14,20 +14,20 @@ describe('UpdateUserApplicationService', () => {
         user: updateUser,
     };
 
-    const commandDifferent: Required<UpdateUserCommand> = {
-        user: differentUser,
-    };
+    beforeEach(() => {
+        repository.clean();
+    });
 
     test('can update user', async () => {
         await registerUserApplicationService.execute(commandForSample);
 
         await updateUserApplicationService.execute(commandForUpdate);
-        const updatedUser = await repository.findById(updateUser.userId);
+        const updatedUser = await repository.getById(updateUser.userId);
 
         expect(updatedUser).toEqual(updateUser);
     });
 
     test('throw error if user not found', async () => {
-        await expect(updateUserApplicationService.execute(commandDifferent)).rejects.toThrow();
+        await expect(updateUserApplicationService.execute(commandForSample)).rejects.toThrow();
     });
 });

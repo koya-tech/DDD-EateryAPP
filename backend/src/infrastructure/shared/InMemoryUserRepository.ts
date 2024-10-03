@@ -7,7 +7,7 @@ export default class InMemoryUserRepository implements IUserRepository {
         [id: string]: User;
     } = {};
 
-    async save(user: User) {
+    async register(user: User) {
         this.DB[user.userId.value.toString()] = user;
     }
 
@@ -19,14 +19,19 @@ export default class InMemoryUserRepository implements IUserRepository {
         delete this.DB[userId.value.toString()];
     }
 
-    async findById(userId: UserId): Promise<User | null> {
+    async getById(userId: UserId): Promise<User | null> {
         const targetUser = Object.entries(this.DB)
             .find(([id]) => userId.value.toString() === id);
 
         return targetUser ? targetUser[1] : null;
     }
 
-    async read(): Promise<User[] | null> {
+    async get(): Promise<User[] | null> {
         return Object.entries(this.DB).map((pair) => pair[1]);
+    }
+
+    // for testing
+    async clean(): Promise<void> {
+        this.DB = {};
     }
 }

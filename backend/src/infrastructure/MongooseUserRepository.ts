@@ -8,7 +8,7 @@ import UserModel from '../external/mongoose/model/UserModel';
 
 export default class MongooseUserRepository implements IUserRepository {
     // eslint-disable-next-line class-methods-use-this
-    async save(user: User): Promise<void> {
+    async register(user: User): Promise<void> {
         const savedUser = new UserModel({
             _userName: user.userName.value,
             _userPassword: user.userPassword.value,
@@ -44,7 +44,7 @@ export default class MongooseUserRepository implements IUserRepository {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async findById(userId: UserId): Promise<User | null> {
+    async getById(userId: UserId): Promise<User | null> {
         const foundUser = await UserModel.findById(userId.value).exec();
         if (!foundUser) {
             throw new Error('User Not Found.');
@@ -58,8 +58,9 @@ export default class MongooseUserRepository implements IUserRepository {
         );
     }
 
+    // for admin and test purpose
     // eslint-disable-next-line class-methods-use-this
-    async read(): Promise<User[] | null> {
+    async get(): Promise<User[] | null> {
         const users = await UserModel.find().exec();
         if (!users || users.length === 0) {
             return null;

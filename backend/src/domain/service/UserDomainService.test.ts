@@ -36,7 +36,7 @@ describe('UserDomainService test', () => {
             new UserPassword(beforeEachHashedPassword),
             new UserImage('beforeEach.jpg'),
         );
-        await inMemoryUserRepository.save(beforeEachUser);
+        await inMemoryUserRepository.register(beforeEachUser);
     });
 
     test('return true when same username TEST exist in DB', async () => {
@@ -51,13 +51,13 @@ describe('UserDomainService test', () => {
 
     test('deleteUser function test', async () => {
         await userDomainService.deleteUser(beforeEachUser.userId);
-        const target = await inMemoryUserRepository.findById(beforeEachUser.userId);
+        const target = await inMemoryUserRepository.getById(beforeEachUser.userId);
         expect(target).toBeNull();
     });
 
     test('registerUser function test', async () => {
         await userDomainService.registerUser(sampleUser);
-        const target = await inMemoryUserRepository.findById(sampleUser.userId);
+        const target = await inMemoryUserRepository.getById(sampleUser.userId);
         expect(target).toBe(sampleUser);
     });
 
@@ -70,7 +70,7 @@ describe('UserDomainService test', () => {
     });
 
     test('update function test', async () => {
-        const willUpdateUser = await inMemoryUserRepository.findById(beforeEachUser.userId);
+        const willUpdateUser = await inMemoryUserRepository.getById(beforeEachUser.userId);
         if (willUpdateUser == null) {
             throw new Error('User not found.');
         }
@@ -81,12 +81,12 @@ describe('UserDomainService test', () => {
             willUpdateUser?.userImage,
         );
         await userDomainService.updateUser(updatedUser);
-        const updatedUserInDB = await inMemoryUserRepository.findById(updatedUser.userId);
+        const updatedUserInDB = await inMemoryUserRepository.getById(updatedUser.userId);
         expect(updatedUserInDB).toBe(updatedUser);
     });
 
-    test('readUser function  test', async () => {
-        const target = await inMemoryUserRepository.read();
+    test('getUser function  test', async () => {
+        const target = await inMemoryUserRepository.get();
         if (!target) {
             throw new Error('not found eatery');
         }

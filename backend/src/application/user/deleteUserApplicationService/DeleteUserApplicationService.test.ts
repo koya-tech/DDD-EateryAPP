@@ -1,34 +1,32 @@
 import InMemoryUserRepository from '../../../infrastructure/shared/InMemoryUserRepository';
-import DeleteUserApplicationService, { DeleteUserCommand } from './DeleteUserApplicationService';
+import DeleteUserApplicationService from './DeleteUserApplicationService';
 import RegisterUserApplicationService, { RegisterUserCommand } from '../registerUserApplicationService/RegisterUserApplicationService';
-import { sampleUser, updateUser } from '../testUserData';
+import { sampleUser } from '../testUserData';
 
 describe('RegisterUserApplicationService', () => {
     const repository = new InMemoryUserRepository();
     const deleteUserApplicationService = new DeleteUserApplicationService(repository);
 
+    const command: Required<RegisterUserCommand> = {
+        user: sampleUser,
+    };
+
+    beforeEach(() => {
+        repository.clean();
+    });
+
     test('delete user correctly', async () => {
         const registerUserApplicationService = new RegisterUserApplicationService(repository);
-        const commandForRegister: Required<RegisterUserCommand> = {
-            user: sampleUser,
-        };
 
-        await registerUserApplicationService.execute(commandForRegister);
+        await registerUserApplicationService.execute(command);
 
-        const commandForDelete: Required<DeleteUserCommand> = {
-            user: sampleUser,
-        };
-
-        await deleteUserApplicationService.execute(commandForDelete);
-        const deletedUser = await repository.findById(sampleUser.userId);
+        await deleteUserApplicationService.execute(command);
+        const deletedUser = await repository.getById(sampleUser.userId);
 
         expect(deletedUser).toBeNull();
     });
 
-    test('throw error if the same name user already exists in DB', async () => {
-        const commandForDelete: Required<DeleteUserCommand> = {
-            user: updateUser,
-        };
-        await expect(deleteUserApplicationService.execute(commandForDelete)).rejects.toThrow();
+    test('throw error if not exists in DB', async () => {
+        await expect(deleteUserApplicationService.execute(command)).rejects.toThrow();
     });
 });

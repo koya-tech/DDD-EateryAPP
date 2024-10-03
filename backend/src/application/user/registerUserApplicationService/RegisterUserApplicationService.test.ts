@@ -11,7 +11,7 @@ describe('RegisterUserApplicationService', () => {
 
     test('register user correctly', async () => {
         await registerUserApplicationService.execute(command);
-        const createdUser = await repository.findById(sampleUser.userId);
+        const createdUser = await repository.getById(sampleUser.userId);
 
         expect(createdUser).not.toBeNull();
         expect(createdUser).toEqual(sampleUser);
