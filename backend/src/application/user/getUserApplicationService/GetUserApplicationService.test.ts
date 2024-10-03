@@ -1,6 +1,6 @@
 import InMemoryUserRepository from '../../../infrastructure/shared/InMemoryUserRepository';
 import { sampleUser } from '../testUserData';
-import UserDTO from '../userDto';
+import UserDto from '../userDto';
 import GetUserApplicationService, { GetUserCommand } from './GetUserApplicationService';
 
 describe('GetUserApplicationService test', () => {
@@ -16,7 +16,7 @@ describe('GetUserApplicationService test', () => {
 
     test('get user correctly', async () => {
         await repository.register(sampleUser);
-        const sampleUserDto = new UserDTO(sampleUser);
+        const sampleUserDto = new UserDto(sampleUser);
         const user = await getUserApplicationService.execute(command);
         expect(user).toEqual(sampleUserDto);
     });

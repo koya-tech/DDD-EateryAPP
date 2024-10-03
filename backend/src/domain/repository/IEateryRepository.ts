@@ -3,13 +3,13 @@ import EateryId from '../valueObject/eatery/EateryId';
 
 export interface IEateryRepository {
 
-    save(eatery: Eatery): Promise<void>;
+    register(eatery: Eatery): Promise<void>;
 
     update(eatery: Eatery): Promise<void>;
 
     deleteById(eateryId: EateryId): Promise<void>;
 
-    findById(eateryId: EateryId): Promise<Eatery | null>;
+    getById(eateryId: EateryId): Promise<Eatery | null>;
 
-    read(): Promise<Eatery[] | null>;
+    get(): Promise<Eatery[] | null>;
 }

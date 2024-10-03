@@ -1,6 +1,6 @@
 import EateryReview from '../../domain/entities/EateryReview';
 
-export default class EateryReviewDTO {
+export default class EateryReviewDto {
     public readonly eateryReviewId: string;
 
     public readonly eateryId: string;

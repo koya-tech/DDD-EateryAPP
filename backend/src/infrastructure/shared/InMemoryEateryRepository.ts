@@ -7,7 +7,7 @@ export default class InMemoryEateryRepository implements IEateryRepository {
         [id: string]: Eatery;
     } = {};
 
-    async save(eatery: Eatery) {
+    async register(eatery: Eatery) {
         this.DB[eatery.eateryId.value.toString()] = eatery;
     }
 
@@ -19,7 +19,7 @@ export default class InMemoryEateryRepository implements IEateryRepository {
         delete this.DB[eateryId.value.toString()];
     }
 
-    async findById(eateryId: EateryId): Promise<Eatery | null> {
+    async getById(eateryId: EateryId): Promise<Eatery | null> {
         const targetEatery = Object.entries(this.DB)
             .find(([id]) => eateryId.value.toString() === this.DB[id]
                 .eateryId.value.toString());
@@ -27,7 +27,11 @@ export default class InMemoryEateryRepository implements IEateryRepository {
         return targetEatery ? targetEatery[1] : null;
     }
 
-    async read(): Promise<Eatery[] | null> {
+    async get(): Promise<Eatery[] | null> {
         return Object.entries(this.DB).map((pair) => pair[1]);
+    }
+
+    async clean() {
+        this.DB = {};
     }
 }

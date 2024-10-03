@@ -57,13 +57,13 @@ describe('MongooseEateryRepository', () => {
     const repository = new MongooseEateryRepository();
 
     test('can get info which repo did save', async () => {
-        await repository.save(eatery);
+        await repository.register(eatery);
 
-        const eateryList = await repository.read();
+        const eateryList = await repository.get();
         if (eateryList === null) {
             throw new Error('failed to read EateryInfo');
         }
-        const createdEntity = await repository.findById(eateryList[0].eateryId);
+        const createdEntity = await repository.getById(eateryList[0].eateryId);
 
         expect(createdEntity?.eateryName.equals(eateryName)).toBeTruthy();
         expect(createdEntity?.eateryCategory.equals(eateryCategory)).toBeTruthy();
@@ -76,9 +76,9 @@ describe('MongooseEateryRepository', () => {
     });
 
     test('can update about eatery info', async () => {
-        await repository.save(eatery);
+        await repository.register(eatery);
 
-        const eateryList = await repository.read();
+        const eateryList = await repository.get();
         if (eateryList === null) {
             throw new Error('failed to read EateryInfo');
         }
@@ -108,7 +108,7 @@ describe('MongooseEateryRepository', () => {
         );
 
         await repository.update(updatedEatery);
-        const createdEntity = await repository.findById(eateryList[0].eateryId);
+        const createdEntity = await repository.getById(eateryList[0].eateryId);
 
         expect(createdEntity?.eateryName.equals(updatedEateryName)).toBeTruthy();
         expect(createdEntity?.eateryCategory.equals(updatedEateryCategory)).toBeTruthy();
@@ -121,14 +121,14 @@ describe('MongooseEateryRepository', () => {
     });
 
     test('can delete eatery info', async () => {
-        await repository.save(eatery);
+        await repository.register(eatery);
 
-        const eateryList = await repository.read();
+        const eateryList = await repository.get();
         if (eateryList === null) {
             throw new Error('failed to read UserInfo');
         }
         await repository.deleteById(eateryList[0].eateryId);
-        const eateryListAfterDelete = await repository.read();
+        const eateryListAfterDelete = await repository.get();
         expect(eateryListAfterDelete).toBeNull();
     });
 });

@@ -1,6 +1,6 @@
 import InMemoryEateryRepository from '../../../infrastructure/shared/InMemoryEateryRepository';
 import RegisterEateryApplicationService from '../registerEateryApplicationService/RegisterEateryApplicationService';
-import { differentEatery, sampleEatery, updatedEatery } from '../testEateryData';
+import { sampleEatery, updatedEatery } from '../testEateryData';
 import UpdateEateryApplicationService, { UpdateEateryCommand } from './UpdateEateryApplicationService';
 
 describe('UpdateEateryApplicationService', () => {
@@ -16,20 +16,20 @@ describe('UpdateEateryApplicationService', () => {
         eatery: updatedEatery,
     };
 
-    const commandDifferent: Required<UpdateEateryCommand> = {
-        eatery: differentEatery,
-    };
+    beforeEach(async () => {
+        repository.clean();
+    });
 
     test('can update eatery', async () => {
         await registerEateryApplicationService.execute(commandForSample);
 
         await updateEateryApplicationService.execute(commandForUpdate);
-        const targetEatery = await repository.findById(updatedEatery.eateryId);
+        const targetEatery = await repository.getById(updatedEatery.eateryId);
 
         expect(updatedEatery).toEqual(targetEatery);
     });
 
     test('throw error if eatery not found', async () => {
-        await expect(updateEateryApplicationService.execute(commandDifferent)).rejects.toThrow();
+        await expect(updateEateryApplicationService.execute(commandForSample)).rejects.toThrow();
     });
 });

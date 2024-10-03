@@ -15,7 +15,7 @@ import EateryModel from '../external/mongoose/model/EateryModel';
 
 export default class MongooseEateryRepository implements IEateryRepository {
     // eslint-disable-next-line class-methods-use-this
-    async save(eatery: Eatery): Promise<void> {
+    async register(eatery: Eatery): Promise<void> {
         const savedEatery = new EateryModel({
             _eateryName: eatery.eateryName.value,
             _eateryCategory: eatery.eateryCategory.value,
@@ -65,7 +65,7 @@ export default class MongooseEateryRepository implements IEateryRepository {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async findById(eateryId: EateryId): Promise<Eatery | null> {
+    async getById(eateryId: EateryId): Promise<Eatery | null> {
         const foundEatery = await EateryModel.findById(eateryId.value).exec();
         if (!foundEatery) {
             throw new Error('Eatery not found');
@@ -99,7 +99,7 @@ export default class MongooseEateryRepository implements IEateryRepository {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async read(): Promise<Eatery[] | null> {
+    async get(): Promise<Eatery[] | null> {
         const foundEateries = await EateryModel.find().exec();
         if (!foundEateries || foundEateries.length === 0) {
             return null;

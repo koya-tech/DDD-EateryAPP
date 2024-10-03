@@ -1,6 +1,6 @@
 import User from '../../domain/entities/User';
 
-export default class UserDTO {
+export default class UserDto {
     public readonly userId: string;
 
     public readonly userName: string;

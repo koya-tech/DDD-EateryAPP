@@ -14,9 +14,9 @@ import EateryDomainService from './EateryDomainService';
 import EateryId from '../valueObject/eatery/EateryId';
 
 describe('EateryDomainService', () => {
-    let eateryDomainService: EateryDomainService;
-    let inMemoryEateryRepository: InMemoryEateryRepository;
-    let beforeEachEatery: Eatery;
+    const repository = new InMemoryEateryRepository();
+    const eateryDomainService = new EateryDomainService(repository);
+    // let beforeEachEatery: Eatery;
 
     const sampleEateryId = new EateryId('abcdef');
     const sampleEateryName = new EateryName('subTest Eatery');
@@ -44,64 +44,41 @@ describe('EateryDomainService', () => {
     );
 
     beforeEach(async () => {
-        inMemoryEateryRepository = new InMemoryEateryRepository();
-        eateryDomainService = new EateryDomainService(inMemoryEateryRepository);
-        const beforeEachEateryId = new EateryId('ghijk');
-        const beforeEachEateryName = new EateryName('Test Eatery');
-        const beforeEachEateryCategory = new EateryCategory('Western');
-        const beforeEachEateryDescription = new EateryDescription('Description');
-        const beforeEachEateryRating = new EateryRating(4.5);
-        const beforeEachEateryAddress = new EateryAddress('123 Test St');
-        const beforeEachEateryLocation = new EateryLocation([56, 78]);
-        const beforeEachEateryCountry = new EateryCountry('JPN');
-        const beforeEachEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
-        const beforeEachEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
-        const beforeEachEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
-        beforeEachEatery = Eatery.create(
-            beforeEachEateryId,
-            beforeEachEateryName,
-            beforeEachEateryCategory,
-            beforeEachEateryDescription,
-            beforeEachEateryRating,
-            beforeEachEateryAddress,
-            beforeEachEateryLocation,
-            beforeEachEateryCountry,
-            beforeEachEateryBusinessHours,
-            beforeEachEateryRegularHolidays,
-            beforeEachEateryImages,
-        );
-        await inMemoryEateryRepository.save(beforeEachEatery);
+        repository.clean();
     });
 
-    test('return true when same eateryname TEST exist in DB', async () => {
-        const result = await eateryDomainService.IsEateryNameDuplicateCheck(beforeEachEatery);
+    test('return true when same eateryName TEST exist in DB', async () => {
+        await repository.register(sampleEatery);
+        const result = await eateryDomainService.IsEateryNameDuplicate(sampleEatery);
         expect(result).toBeTruthy();
     });
 
-    test('return true when same eateryname TEST does not exist in DB', async () => {
-        const result = await eateryDomainService.IsEateryNameDuplicateCheck(sampleEatery);
+    test('return true when same eateryName TEST does not exist in DB', async () => {
+        const result = await eateryDomainService.IsEateryNameDuplicate(sampleEatery);
         expect(result).toBeFalsy();
     });
 
     test('deleteEatery function test', async () => {
-        await eateryDomainService.deleteEatery(beforeEachEatery);
-        const target = await inMemoryEateryRepository.findById(beforeEachEatery.eateryId);
+        await repository.register(sampleEatery);
+        await eateryDomainService.deleteEatery(sampleEatery);
+        const target = await repository.getById(sampleEatery.eateryId);
         expect(target).toBeNull();
     });
 
     test('registerEatery function  test', async () => {
         await eateryDomainService.registerEatery(sampleEatery);
-        const target = await inMemoryEateryRepository.findById(sampleEatery.eateryId);
+        const target = await repository.getById(sampleEatery.eateryId);
         expect(target).toBe(sampleEatery);
     });
 
     test('updateEatery function test', async () => {
-        const willUpdateEatery = await inMemoryEateryRepository.findById(beforeEachEatery.eateryId);
+        await eateryDomainService.registerEatery(sampleEatery);
+        const willUpdateEatery = await repository.getById(sampleEatery.eateryId);
         if (willUpdateEatery == null) {
             throw new Error('Eatery not found.');
         }
         const updatedEatery = Eatery.reconstruct(
-            willUpdateEatery.eateryId,
+            sampleEatery.eateryId,
             new EateryName('updatedEatery'),
             willUpdateEatery.eateryCategory,
             willUpdateEatery.eateryDescription,
@@ -114,15 +91,16 @@ describe('EateryDomainService', () => {
             willUpdateEatery.eateryImages,
         );
         await eateryDomainService.updateEatery(updatedEatery);
-        const updatedEateryInDB = await inMemoryEateryRepository.findById(updatedEatery.eateryId);
+        const updatedEateryInDB = await repository.getById(updatedEatery.eateryId);
         expect(updatedEateryInDB).toBe(updatedEatery);
     });
 
-    test('readEatery function  test', async () => {
-        const target = await inMemoryEateryRepository.read();
+    test('getEatery function  test', async () => {
+        await eateryDomainService.registerEatery(sampleEatery);
+        const target = await repository.get();
         if (!target) {
             throw new Error('not found eatery');
         }
-        expect(target[0]).toBe(beforeEachEatery);
+        expect(target[0]).toBe(sampleEatery);
     });
 });

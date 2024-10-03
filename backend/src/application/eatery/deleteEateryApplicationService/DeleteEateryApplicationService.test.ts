@@ -15,7 +15,7 @@ describe('DeleteEateryApplicationService', () => {
     test('delete eatery correctly', async () => {
         await registerEateryApplicationService.execute(command);
         await deleteEateryApplicationService.execute(command);
-        const deletedEatery = await repository.findById(sampleEatery.eateryId);
+        const deletedEatery = await repository.getById(sampleEatery.eateryId);
 
         expect(deletedEatery).toBeNull();
     });
