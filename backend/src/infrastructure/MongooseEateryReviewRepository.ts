@@ -9,7 +9,7 @@ import EateryReviewModel from '../external/mongoose/model/EateryReviewModel';
 
 export default class MongooseEateryReviewRepository implements IEateryReviewRepository {
     // eslint-disable-next-line class-methods-use-this
-    async save(eateryReview: EateryReview): Promise<void> {
+    async register(eateryReview: EateryReview): Promise<void> {
         const savedEateryReview = new EateryReviewModel({
             _eateryReviewId: eateryReview.eateryId.value,
             _eateryReviewComment: eateryReview.eateryReviewComment.value,
@@ -48,7 +48,7 @@ export default class MongooseEateryReviewRepository implements IEateryReviewRepo
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async findById(eateryReviewId: EateryReviewId): Promise<EateryReview | null> {
+    async getById(eateryReviewId: EateryReviewId): Promise<EateryReview | null> {
         const foundEateryReview = await EateryReviewModel.findById(eateryReviewId.value).exec();
         if (!foundEateryReview) {
             throw new Error('EateryReview not found');
@@ -64,7 +64,7 @@ export default class MongooseEateryReviewRepository implements IEateryReviewRepo
     }
 
     // eslint-disable-next-line class-methods-use-this
-    async read(): Promise<EateryReview[] | null> {
+    async get(): Promise<EateryReview[] | null> {
         const foundEateryReviews = await EateryReviewModel.find().exec();
         if (!foundEateryReviews || foundEateryReviews.length === 0) {
             return null;

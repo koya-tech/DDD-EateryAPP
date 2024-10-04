@@ -14,7 +14,7 @@ describe('RegisterEateryReviewApplicationService', () => {
 
     test('register eatery review correctly', async () => {
         expect(await registerEateryReviewApplicationService.execute(command)).toBe(undefined);
-        const createdEateryReview = await repository.findById(sampleEateryReview.eateryReviewId);
+        const createdEateryReview = await repository.getById(sampleEateryReview.eateryReviewId);
 
         expect(createdEateryReview).not.toBeNull();
         expect(createdEateryReview).toEqual(sampleEateryReview);

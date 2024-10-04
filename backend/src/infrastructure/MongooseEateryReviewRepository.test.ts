@@ -39,13 +39,13 @@ describe('MongooseEateryRepository', () => {
     const repository = new MongooseEateryReviewRepository();
 
     test('can get info which repo did save', async () => {
-        await repository.save(eateryReview);
+        await repository.register(eateryReview);
 
-        const eateryReviewList = await repository.read();
+        const eateryReviewList = await repository.get();
         if (eateryReviewList === null) {
             throw new Error('failed to read EateryReviewInfo');
         }
-        const createdEntity = await repository.findById(eateryReviewList[0].eateryReviewId);
+        const createdEntity = await repository.getById(eateryReviewList[0].eateryReviewId);
         expect(createdEntity?.eateryReviewComment.equals(eateryReviewComment)).toBeTruthy();
         expect(createdEntity?.eateryReviewRating.equals(eateryReviewRating)).toBeTruthy();
         expect(createdEntity?.eateryId.equals(eateryId)).toBeTruthy();
@@ -53,9 +53,9 @@ describe('MongooseEateryRepository', () => {
     });
 
     test('can update about eateryReview info', async () => {
-        await repository.save(eateryReview);
+        await repository.register(eateryReview);
 
-        const eateryReviewList = await repository.read();
+        const eateryReviewList = await repository.get();
         if (eateryReviewList === null) {
             throw new Error('failed to read EateryReviewInfo');
         }
@@ -72,7 +72,7 @@ describe('MongooseEateryRepository', () => {
 
         await repository.update(updatedEateryReview);
 
-        const createdEntity = await repository.findById(eateryReviewList[0].eateryReviewId);
+        const createdEntity = await repository.getById(eateryReviewList[0].eateryReviewId);
 
         expect(createdEntity?.eateryReviewComment.equals(updatedEateryReviewComment)).toBeTruthy();
         expect(createdEntity?.eateryReviewRating.equals(updatedEateryReviewRating)).toBeTruthy();
@@ -81,14 +81,14 @@ describe('MongooseEateryRepository', () => {
     });
 
     test('can delete eateryReview info', async () => {
-        await repository.save(eateryReview);
+        await repository.register(eateryReview);
 
-        const eateryReviewList = await repository.read();
+        const eateryReviewList = await repository.get();
         if (eateryReviewList === null) {
             throw new Error('failed to read EateryReviewInfo');
         }
         await repository.deleteById(eateryReviewList[0].eateryReviewId);
-        const eateryReviewListAfterDelete = await repository.read();
+        const eateryReviewListAfterDelete = await repository.get();
         expect(eateryReviewListAfterDelete).toBeNull();
     });
 });

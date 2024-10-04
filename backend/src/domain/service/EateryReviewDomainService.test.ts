@@ -8,8 +8,8 @@ import EateryReviewDomainService from './EateryReviewDomainService';
 import EateryReviewId from '../valueObject/eateryReview/EateryReviewId';
 
 describe('EateryReviewDomainService', () => {
-    let inMemoryEateryReviewRepository: InMemoryEateryReviewRepository;
-    let eateryReviewDomainService: EateryReviewDomainService;
+    const inMemoryEateryReviewRepository = new InMemoryEateryReviewRepository();
+    const eateryReviewDomainService = new EateryReviewDomainService(inMemoryEateryReviewRepository);
     let beforeEachEateryReview: EateryReview;
 
     const sampleEateryReview = EateryReview.create(
@@ -21,8 +21,6 @@ describe('EateryReviewDomainService', () => {
     );
 
     beforeEach(async () => {
-        inMemoryEateryReviewRepository = new InMemoryEateryReviewRepository();
-        eateryReviewDomainService = new EateryReviewDomainService(inMemoryEateryReviewRepository);
         beforeEachEateryReview = EateryReview.create(
             new EateryReviewId('before'),
             new EateryReviewComment('EateryReviewComment'),
@@ -30,26 +28,26 @@ describe('EateryReviewDomainService', () => {
             new EateryId('before-eatery-id'),
             new UserId('before-user-id'),
         );
-        await inMemoryEateryReviewRepository.save(beforeEachEateryReview);
+        await inMemoryEateryReviewRepository.register(beforeEachEateryReview);
     });
 
     test('deleteEateryReview function test', async () => {
         await eateryReviewDomainService.deleteEateryReview(beforeEachEateryReview);
         const target = await inMemoryEateryReviewRepository
-            .findById(beforeEachEateryReview.eateryReviewId);
+            .getById(beforeEachEateryReview.eateryReviewId);
         expect(target).toBeNull();
     });
 
     test('registerEateryReview function  test', async () => {
         await eateryReviewDomainService.registerEateryReview(sampleEateryReview);
         const target = await inMemoryEateryReviewRepository
-            .findById(sampleEateryReview.eateryReviewId);
+            .getById(sampleEateryReview.eateryReviewId);
         expect(target).toBe(sampleEateryReview);
     });
 
     test('updateEateryReview function test', async () => {
         const willEateryReview = await inMemoryEateryReviewRepository
-            .findById(beforeEachEateryReview.eateryReviewId);
+            .getById(beforeEachEateryReview.eateryReviewId);
         if (willEateryReview == null) {
             throw new Error('EateryReview not found.');
         }
@@ -62,12 +60,12 @@ describe('EateryReviewDomainService', () => {
         );
         await eateryReviewDomainService.updateEateryReview(updatedEateryReview);
         const updatedEateryReviewInDB = await inMemoryEateryReviewRepository
-            .findById(updatedEateryReview.eateryReviewId);
+            .getById(updatedEateryReview.eateryReviewId);
         expect(updatedEateryReview).toBe(updatedEateryReviewInDB);
     });
 
     test('readEatery function  test', async () => {
-        const target = await inMemoryEateryReviewRepository.read();
+        const target = await inMemoryEateryReviewRepository.get();
         if (!target) {
             throw new Error('not found eatery');
         }

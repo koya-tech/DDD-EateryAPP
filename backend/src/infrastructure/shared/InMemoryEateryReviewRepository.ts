@@ -7,7 +7,7 @@ export default class InMemoryEateryReviewRepository implements IEateryReviewRepo
         [id: string]: EateryReview;
     } = {};
 
-    async save(eateryReview: EateryReview) {
+    async register(eateryReview: EateryReview) {
         this.DB[eateryReview.eateryReviewId.value.toString()] = eateryReview;
     }
 
@@ -19,7 +19,7 @@ export default class InMemoryEateryReviewRepository implements IEateryReviewRepo
         delete this.DB[eateryReviewId.value.toString()];
     }
 
-    async findById(eateryReviewId: EateryReviewId): Promise<EateryReview | null> {
+    async getById(eateryReviewId: EateryReviewId): Promise<EateryReview | null> {
         const targetEateryReview = Object.entries(this.DB)
             .find(([id]) => eateryReviewId.value.toString() === this
                 .DB[id].eateryReviewId.value.toString());
@@ -27,7 +27,11 @@ export default class InMemoryEateryReviewRepository implements IEateryReviewRepo
         return targetEateryReview ? targetEateryReview[1] : null;
     }
 
-    async read(): Promise<EateryReview[] | null> {
+    async get(): Promise<EateryReview[] | null> {
         return Object.entries(this.DB).map((pair) => pair[1]);
+    }
+
+    async clean() {
+        this.DB = {};
     }
 }

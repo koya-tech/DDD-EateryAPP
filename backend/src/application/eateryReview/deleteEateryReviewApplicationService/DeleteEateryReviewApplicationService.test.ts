@@ -19,7 +19,7 @@ describe('DeleteEateryReviewApplicationService', () => {
     test('delete eatery review correctly', async () => {
         await registerEateryReviewApplicationService.execute(command);
         await deleteEateryReviewApplicationService.execute(command);
-        expect(await repository.findById(sampleEateryReview.eateryReviewId)).toBeNull();
+        expect(await repository.getById(sampleEateryReview.eateryReviewId)).toBeNull();
     });
 
     test('throw error if the eatery review does not exist in DB', async () => {

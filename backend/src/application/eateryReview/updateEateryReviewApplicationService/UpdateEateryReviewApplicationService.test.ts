@@ -26,7 +26,7 @@ describe('UpdateEateryReviewApplicationService', () => {
     test('update eatery review correctly', async () => {
         await registerEateryReviewApplicationService.execute(commandForSample);
         await updateEateryReviewApplicationService.execute(commandForUpdate);
-        const updatedEateryReview = await repository.findById(sampleEateryReview.eateryReviewId);
+        const updatedEateryReview = await repository.getById(sampleEateryReview.eateryReviewId);
 
         expect(updatedEateryReview).not.toBeNull();
         expect(updatedEateryReview).toEqual(updateEateryReview);
