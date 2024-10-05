@@ -9,6 +9,7 @@ import EateryLocation from '../valueObject/eatery/EateryLocation';
 import EateryName from '../valueObject/eatery/EateryName';
 import EateryRating from '../valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../valueObject/eatery/EateryRegularHolidays';
+import UserId from '../valueObject/user/UserId';
 
 export default class Eatery {
     private constructor(
@@ -23,6 +24,7 @@ export default class Eatery {
         private _eateryBusinessHours: EateryBusinessHours,
         private _eateryRegularHolidays: EateryRegularHolidays,
         private _eateryImages: EateryImages,
+        private readonly _userId: UserId,
     ) { }
 
     static create(
@@ -37,6 +39,7 @@ export default class Eatery {
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
+        userId: UserId,
     ) {
         return new Eatery(
             eateryId,
@@ -50,6 +53,7 @@ export default class Eatery {
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
+            userId,
         );
     }
 
@@ -65,6 +69,7 @@ export default class Eatery {
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
+        userId: UserId,
     ) {
         return new Eatery(
             eateryId,
@@ -78,6 +83,7 @@ export default class Eatery {
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
+            userId,
         );
     }
 
@@ -123,5 +129,9 @@ export default class Eatery {
 
     get eateryImages(): EateryImages {
         return this._eateryImages;
+    }
+
+    get userId(): UserId {
+        return this._userId;
     }
 }

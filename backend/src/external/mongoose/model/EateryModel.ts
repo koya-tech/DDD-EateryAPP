@@ -48,6 +48,7 @@ const eaterySchema = new Schema({
         type: [String],
         required: true,
     },
+    _userId: { type: String, ref: 'User', required: true },
 });
 
 eaterySchema.index({ _eateryLocation: '2dsphere' });
