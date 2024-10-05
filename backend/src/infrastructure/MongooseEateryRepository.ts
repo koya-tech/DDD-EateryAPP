@@ -12,6 +12,7 @@ import EateryName from '../domain/valueObject/eatery/EateryName';
 import EateryRating from '../domain/valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../domain/valueObject/eatery/EateryRegularHolidays';
 import EateryModel from '../external/mongoose/model/EateryModel';
+import MongodbSetting from './MongodbSetting';
 
 export default class MongooseEateryRepository implements IEateryRepository {
     // eslint-disable-next-line class-methods-use-this
@@ -22,7 +23,13 @@ export default class MongooseEateryRepository implements IEateryRepository {
             _eateryDescription: eatery.eateryDescription.value,
             _eateryRating: eatery.eateryRating.value,
             _eateryAddress: eatery.eateryAddress.value,
-            _eateryLocation: eatery.eateryLocation.value,
+            _eateryLocation: {
+                type: MongodbSetting.geoJsonType,
+                coordinates: [
+                    eatery.eateryLocation.value[0],
+                    eatery.eateryLocation.value[1],
+                ],
+            },
             _eateryCountry: eatery.eateryCountry.value,
             _eateryBusinessHours: eatery.eateryBusinessHours.value,
             _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
@@ -41,7 +48,13 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 _eateryDescription: eatery.eateryDescription.value,
                 _eateryRating: eatery.eateryRating.value,
                 _eateryAddress: eatery.eateryAddress.value,
-                _eateryLocation: eatery.eateryLocation.value,
+                _eateryLocation: {
+                    type: MongodbSetting.geoJsonType,
+                    coordinates: [
+                        eatery.eateryLocation.value[0],
+                        eatery.eateryLocation.value[1],
+                    ],
+                },
                 _eateryCountry: eatery.eateryCountry.value,
                 _eateryBusinessHours: eatery.eateryBusinessHours.value,
                 _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
@@ -70,7 +83,10 @@ export default class MongooseEateryRepository implements IEateryRepository {
         if (!foundEatery) {
             throw new Error('Eatery not found');
         }
-        const foundLocationArray = foundEatery._eateryLocation;
+        const foundLocationArray = foundEatery._eateryLocation as unknown as {
+            type: string,
+            coordinates: [number, number],
+        };
         const foundEateryBusinessHours = foundEatery._eateryBusinessHours;
 
         return Eatery.reconstruct(
@@ -82,8 +98,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
             new EateryAddress(foundEatery._eateryAddress),
             new EateryLocation(
                 [
-                    foundLocationArray[0],
-                    foundLocationArray[1],
+                    foundLocationArray.coordinates[0],
+                    foundLocationArray.coordinates[1],
                 ],
             ),
             new EateryCountry(foundEatery._eateryCountry),
@@ -106,8 +122,14 @@ export default class MongooseEateryRepository implements IEateryRepository {
         }
 
         return foundEateries.map((foundEatery) => {
-            const foundLocationArray = foundEatery._eateryLocation;
+            // _eateryLocation.coordinates にアクセス
+            const foundLocationArray = foundEatery._eateryLocation as unknown as {
+                type: string,
+                coordinates: [number, number],
+            };
+
             const foundEateryBusinessHours = foundEatery._eateryBusinessHours;
+
             return Eatery.reconstruct(
                 new EateryId(foundEatery._id),
                 new EateryName(foundEatery._eateryName),
@@ -117,8 +139,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 new EateryAddress(foundEatery._eateryAddress),
                 new EateryLocation(
                     [
-                        foundLocationArray[0],
-                        foundLocationArray[1],
+                        foundLocationArray.coordinates[0],
+                        foundLocationArray.coordinates[1],
                     ],
                 ),
                 new EateryCountry(foundEatery._eateryCountry),
