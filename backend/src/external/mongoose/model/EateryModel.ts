@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import MongodbSetting from '../../../infrastructure/MongodbSetting';
 
 const eaterySchema = new Schema({
     _id: {
@@ -12,13 +13,20 @@ const eaterySchema = new Schema({
     _eateryRating: { type: Number, required: true },
     _eateryAddress: { type: String, required: true },
     _eateryLocation: {
-        type: [Number],
-        required: true,
-        validate: {
-            validator(value: number[]) {
-                return value.length === 2;
+        type: {
+            type: String,
+            enum: [MongodbSetting.geoJsonType],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+            validate: {
+                validator(value: number[]) {
+                    return value.length === 2;
+                },
+                message: 'Eatery location must contain exactly two numbers (latitude and longitude).',
             },
-            message: 'Eatery location must contain exactly two numbers (latitude and longitude).',
         },
     },
     _eateryCountry: { type: String, required: true },
@@ -29,7 +37,7 @@ const eaterySchema = new Schema({
             validator(value: string[]) {
                 return value.length === 2;
             },
-            message: 'Eatery businesshour must contain exactly two string (start and end).',
+            message: 'Eatery businessHour must contain exactly two string (start and end).',
         },
     },
     _eateryRegularHolidays: {
@@ -41,6 +49,8 @@ const eaterySchema = new Schema({
         required: true,
     },
 });
+
+eaterySchema.index({ _eateryLocation: '2dsphere' });
 
 const EateryModel = mongoose.model('Eatery', eaterySchema);
 
