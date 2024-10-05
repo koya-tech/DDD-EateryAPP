@@ -12,11 +12,11 @@ import EateryRating from '../valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../valueObject/eatery/EateryRegularHolidays';
 import EateryDomainService from './EateryDomainService';
 import EateryId from '../valueObject/eatery/EateryId';
+import UserId from '../valueObject/user/UserId';
 
 describe('EateryDomainService', () => {
     const repository = new InMemoryEateryRepository();
     const eateryDomainService = new EateryDomainService(repository);
-    // let beforeEachEatery: Eatery;
 
     const sampleEateryId = new EateryId('abcdef');
     const sampleEateryName = new EateryName('subTest Eatery');
@@ -29,6 +29,7 @@ describe('EateryDomainService', () => {
     const sampleEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
     const sampleEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
     const sampleEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
+    const sampleUserId = new UserId('mockUserId');
     const sampleEatery = Eatery.create(
         sampleEateryId,
         sampleEateryName,
@@ -41,6 +42,7 @@ describe('EateryDomainService', () => {
         sampleEateryBusinessHours,
         sampleEateryRegularHolidays,
         sampleEateryImages,
+        sampleUserId,
     );
 
     beforeEach(async () => {
@@ -89,6 +91,7 @@ describe('EateryDomainService', () => {
             willUpdateEatery.eateryBusinessHours,
             willUpdateEatery.eateryRegularHolidays,
             willUpdateEatery.eateryImages,
+            willUpdateEatery.userId,
         );
         await eateryDomainService.updateEatery(updatedEatery);
         const updatedEateryInDB = await repository.getById(updatedEatery.eateryId);

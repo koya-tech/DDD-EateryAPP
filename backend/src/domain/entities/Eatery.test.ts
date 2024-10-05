@@ -9,9 +9,10 @@ import EateryLocation from '../valueObject/eatery/EateryLocation';
 import EateryName from '../valueObject/eatery/EateryName';
 import EateryRating from '../valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../valueObject/eatery/EateryRegularHolidays';
+import UserId from '../valueObject/user/UserId';
 import Eatery from './Eatery';
 
-const mockObjectId = new EateryId('sdfjsdfkjgier');
+const mockEateryId = new EateryId('sdfjsdfkjgier');
 const mockEateryName = new EateryName('Test Eatery');
 const mockEateryCategory = new EateryCategory('Western');
 const mockEateryDescription = new EateryDescription('Description');
@@ -22,11 +23,12 @@ const mockEateryCountry = new EateryCountry('JPN');
 const mockEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const mockEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const mockEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
+const mockUserId = new UserId('mockuserid');
 
 describe('Eatery', () => {
     it('should create an Eatery instance with the correct properties', () => {
         const eatery = Eatery.create(
-            mockObjectId,
+            mockEateryId,
             mockEateryName,
             mockEateryCategory,
             mockEateryDescription,
@@ -37,9 +39,10 @@ describe('Eatery', () => {
             mockEateryBusinessHours,
             mockEateryRegularHolidays,
             mockEateryImages,
+            mockUserId,
         );
 
-        expect(eatery.eateryId).toEqual(mockObjectId);
+        expect(eatery.eateryId).toEqual(mockEateryId);
         expect(eatery.eateryName).toEqual(mockEateryName);
         expect(eatery.eateryCategory).toEqual(mockEateryCategory);
         expect(eatery.eateryDescription).toEqual(mockEateryDescription);
@@ -50,5 +53,6 @@ describe('Eatery', () => {
         expect(eatery.eateryBusinessHours).toEqual(mockEateryBusinessHours);
         expect(eatery.eateryRegularHolidays).toEqual(mockEateryRegularHolidays);
         expect(eatery.eateryImages).toEqual(mockEateryImages);
+        expect(eatery.userId).toEqual(mockUserId);
     });
 });

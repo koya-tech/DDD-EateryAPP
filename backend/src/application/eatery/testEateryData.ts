@@ -10,6 +10,7 @@ import EateryLocation from '../../domain/valueObject/eatery/EateryLocation';
 import EateryName from '../../domain/valueObject/eatery/EateryName';
 import EateryRating from '../../domain/valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../../domain/valueObject/eatery/EateryRegularHolidays';
+import UserId from '../../domain/valueObject/user/UserId';
 
 // However, use same ID
 const eateryId = new EateryId('abcdef');
@@ -25,6 +26,8 @@ const sampleEateryCountry = new EateryCountry('JPN');
 const sampleEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const sampleEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const sampleEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
+const sampleUserId = new UserId('sampleUserId');
+
 export const sampleEatery = Eatery.create(
     eateryId,
     sampleEateryName,
@@ -37,6 +40,7 @@ export const sampleEatery = Eatery.create(
     sampleEateryBusinessHours,
     sampleEateryRegularHolidays,
     sampleEateryImages,
+    sampleUserId,
 );
 
 // This is a sample for update test data
@@ -50,6 +54,8 @@ const updatedEateryCountry = new EateryCountry('JPN');
 const updatedEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const updatedEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const updatedEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
+const updatedUserId = new UserId('updated userId');
+
 export const updatedEatery = Eatery.create(
     eateryId,
     updatedEateryName,
@@ -62,6 +68,7 @@ export const updatedEatery = Eatery.create(
     updatedEateryBusinessHours,
     updatedEateryRegularHolidays,
     updatedEateryImages,
+    updatedUserId,
 );
 
 // This is a sample of completely different sample data
@@ -76,6 +83,8 @@ const differentEateryCountry = new EateryCountry('JPN');
 const differentEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const differentEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const differentEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
+const differentUserId = new UserId('lmnop');
+
 export const differentEatery = Eatery.create(
     differentEateryId,
     differentEateryName,
@@ -88,4 +97,5 @@ export const differentEatery = Eatery.create(
     differentEateryBusinessHours,
     differentEateryRegularHolidays,
     differentEateryImages,
+    differentUserId,
 );
