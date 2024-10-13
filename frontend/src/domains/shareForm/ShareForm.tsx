@@ -17,6 +17,9 @@ import DescriptionTextarea from './components/descriptionTextarea/descriptionTex
 import LeafletForm from './components/leafletForm/leafletForm';
 import BusinessHourInput from './components/businessHourInput/businessHourInput';
 import RegularHolidays from './components/regularHolidays/regularHolidays';
+import ImageInput from './components/imageInput/ImageInput';
+
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 5; // 5MB
 
 const formSchema = z.object({
     eateryName: z.string().min(1).max(50),
@@ -29,7 +32,9 @@ const formSchema = z.object({
     eateryBusinessStartHour: z.string(),
     eateryBusinessEndHour: z.string(),
     eateryRegularHolidays: z.array(z.string()),
-    // eateryImages: z.array(z.string()),
+    eateryImages: z.instanceof(File).optional()
+        .refine((file) => !file || file.size < MAX_UPLOAD_SIZE, 'File size must be less than 5MB')
+        .refine((file) => !file || file.type.startsWith('image/'), 'File must be an image'),
 });
 
 const center = {
@@ -82,6 +87,7 @@ function ShareForm() {
                     <LeafletForm />
                     <BusinessHourInput form={form} />
                     <RegularHolidays form={form} />
+                    <ImageInput form={form} />
                 </LocationContext.Provider>
                 <Button type="submit">Submit</Button>
             </form>
