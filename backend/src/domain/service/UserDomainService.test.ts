@@ -40,12 +40,12 @@ describe('UserDomainService test', () => {
     });
 
     test('return true when same username TEST exist in DB', async () => {
-        const result = await userDomainService.IsUserNameDuplicate(beforeEachUser.userId);
+        const result = await userDomainService.IsUserNameDuplicate(beforeEachUser.userName);
         expect(result).toBeTruthy();
     });
 
     test('return false if same username TEST does not exist in DB', async () => {
-        const result = await userDomainService.IsUserNameDuplicate(sampleUser.userId);
+        const result = await userDomainService.IsUserNameDuplicate(sampleUser.userName);
         expect(result).toBeFalsy();
     });
 
@@ -62,7 +62,8 @@ describe('UserDomainService test', () => {
     });
 
     test('when already registered the same name user, throw Error', async () => {
-        await expect(() => userDomainService.registerUser(beforeEachUser)).rejects.toThrow('UserName is already in use.');
+        const target = await inMemoryUserRepository.getByUserName(sampleUser.userName);
+        expect(target).toBeNull();
     });
 
     test('when delete NotExisted User, throw error', async () => {

@@ -1,9 +1,9 @@
-import User from '../../../domain/entities/User';
 import { IUserRepository } from '../../../domain/repository/IUserRepository';
 import UserDomainService from '../../../domain/service/UserDomainService';
+import UserId from '../../../domain/valueObject/user/UserId';
 
 export type DeleteUserCommand = {
-    user: User;
+    userId: string;
 };
 
 export default class DeleteUserApplicationService {
@@ -14,6 +14,6 @@ export default class DeleteUserApplicationService {
     async execute(command: DeleteUserCommand): Promise<void> {
         const userDomainService = await new UserDomainService(this.userRepository);
 
-        await userDomainService.deleteUser(command.user.userId);
+        await userDomainService.deleteUser(new UserId(command.userId));
     }
 }

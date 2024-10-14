@@ -1,10 +1,10 @@
-import User from '../../../domain/entities/User';
 import { IUserRepository } from '../../../domain/repository/IUserRepository';
 import UserDomainService from '../../../domain/service/UserDomainService';
+import UserId from '../../../domain/valueObject/user/UserId';
 import UserDTO from '../userDto';
 
 export type GetUserCommand = {
-    user: User;
+    userId: string;
 };
 
 export default class GetUserApplicationService {
@@ -15,7 +15,7 @@ export default class GetUserApplicationService {
     async execute(command: GetUserCommand): Promise<UserDTO> {
         const userDomainService = await new UserDomainService(this.userRepository);
 
-        const targetUser = await userDomainService.getUser(command.user.userId);
+        const targetUser = await userDomainService.getUser(new UserId(command.userId));
 
         return new UserDTO(targetUser);
     }

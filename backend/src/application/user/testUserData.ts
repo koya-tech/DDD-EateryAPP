@@ -10,7 +10,7 @@ const sampleSaltRounds = 10;
 const samplePassword = 'samplePassword';
 const sampleSalt = bcrypt.genSaltSync(sampleSaltRounds);
 const sampleHashedPassword = bcrypt.hashSync(samplePassword, sampleSalt);
-const userId = new UserId('sample');
+const userId = new UserId('ThisIsTemporaryId');
 export const sampleUser = User.create(
     userId,
     new UserName('sample'),

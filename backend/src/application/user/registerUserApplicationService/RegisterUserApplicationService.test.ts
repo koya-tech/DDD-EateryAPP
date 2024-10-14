@@ -6,7 +6,11 @@ describe('RegisterUserApplicationService', () => {
     const repository = new InMemoryUserRepository();
     const registerUserApplicationService = new RegisterUserApplicationService(repository);
     const command: Required<RegisterUserCommand> = {
-        user: sampleUser,
+        user: {
+            userName: sampleUser.userName.value,
+            userPassword: sampleUser.userPassword.value,
+            userImage: sampleUser.userImage.value,
+        },
     };
 
     test('register user correctly', async () => {
