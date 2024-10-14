@@ -1,0 +1,31 @@
+### register user
+POST http://localhost:3001/api/v1/users/
+Content-Type: application/json
+
+{
+    "userName": "testUser",
+    "userPassword": "$2b$10$2duYdGoFIKE/4VgduNnn6OMkUt22ApIHs6fKZZeH34uaDZ.pZlvtm",
+    "userImage": "testImage"
+}
+
+### Get user info by using user id
+GET http://localhost:3001/api/v1/users/670d7815cf6dc3150285b99b
+Content-Type: application/json
+Accept: application/json
+
+
+### Update user info by using user id
+PUT http://localhost:3001/api/v1/users/670d7815cf6dc3150285b99b
+Content-Type: application/json
+
+{
+    "userId": "670d7815cf6dc3150285b99b",
+    "userName": "updateUser",
+    "userPassword": "$2b$10$2duYdGoFIKE/4VgduNnn6OMkUt22ApIHs6fKZZeH34uaDZ.pZlvtm",
+    "userImage": "updateImage"
+}
+
+### Delete user by using user id
+DELETE http://localhost:3001/api/v1/users/670d7815cf6dc3150285b99b
+Content-Type: application/json
+Accept: application/json

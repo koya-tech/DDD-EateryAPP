@@ -8,10 +8,19 @@ describe('UpdateUserApplicationService', () => {
     const registerUserApplicationService = new RegisterUserApplicationService(repository);
     const updateUserApplicationService = new UpdateUserApplicationService(repository);
     const commandForSample: Required<RegisterUserCommand> = {
-        user: sampleUser,
+        user: {
+            userName: sampleUser.userName.value,
+            userPassword: sampleUser.userPassword.value,
+            userImage: sampleUser.userImage.value,
+        },
     };
     const commandForUpdate: Required<UpdateUserCommand> = {
-        user: updateUser,
+        user: {
+            userId: updateUser.userId.value,
+            userName: updateUser.userName.value,
+            userPassword: updateUser.userPassword.value,
+            userImage: updateUser.userImage.value,
+        },
     };
 
     beforeEach(() => {
@@ -28,6 +37,6 @@ describe('UpdateUserApplicationService', () => {
     });
 
     test('throw error if user not found', async () => {
-        await expect(updateUserApplicationService.execute(commandForSample)).rejects.toThrow();
+        await expect(updateUserApplicationService.execute(commandForUpdate)).rejects.toThrow();
     });
 });

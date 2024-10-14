@@ -1,6 +1,7 @@
 import User from '../entities/User';
 import { IUserRepository } from '../repository/IUserRepository';
 import UserId from '../valueObject/user/UserId';
+import UserName from '../valueObject/user/UserName';
 
 export default class UserDomainService {
     constructor(
@@ -8,14 +9,14 @@ export default class UserDomainService {
     ) { }
 
     // already exist same data → true, no exist → false
-    async IsUserNameDuplicate(userId: UserId) {
-        const duplicateUserName = await this.userRepository.getById(userId);
+    async IsUserNameDuplicate(userName: UserName) {
+        const duplicateUserName = await this.userRepository.getByUserName(userName);
         const isDuplicateUserName = !!duplicateUserName;
         return isDuplicateUserName;
     }
 
     async registerUser(user: User): Promise<void> {
-        if (await this.IsUserNameDuplicate(user.userId)) {
+        if (await this.IsUserNameDuplicate(user.userName)) {
             throw new Error('UserName is already in use.');
         }
         await this.userRepository.register(user);

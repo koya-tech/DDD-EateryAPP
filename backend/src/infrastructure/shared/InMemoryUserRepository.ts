@@ -1,6 +1,7 @@
 import User from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repository/IUserRepository';
 import UserId from '../../domain/valueObject/user/UserId';
+import UserName from '../../domain/valueObject/user/UserName';
 
 export default class InMemoryUserRepository implements IUserRepository {
     public DB: {
@@ -22,6 +23,13 @@ export default class InMemoryUserRepository implements IUserRepository {
     async getById(userId: UserId): Promise<User | null> {
         const targetUser = Object.entries(this.DB)
             .find(([id]) => userId.value.toString() === id);
+
+        return targetUser ? targetUser[1] : null;
+    }
+
+    async getByUserName(userName: UserName): Promise<User | null> {
+        const targetUser = Object.entries(this.DB)
+            .find(([, user]) => user.userName.value === userName.value);
 
         return targetUser ? targetUser[1] : null;
     }

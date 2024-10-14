@@ -47,7 +47,26 @@ export default class MongooseUserRepository implements IUserRepository {
     async getById(userId: UserId): Promise<User | null> {
         const foundUser = await UserModel.findById(userId.value).exec();
         if (!foundUser) {
-            throw new Error('User Not Found.');
+            throw new Error('User not Found.');
+        }
+
+        return User.reconstruct(
+            new UserId(foundUser._id),
+            new UserName(foundUser._userName),
+            new UserPassword(foundUser._userPassword),
+            new UserImage(foundUser._userImage),
+        );
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    async getByUserName(userName: UserName): Promise<User | null> {
+        const foundUser = await UserModel.findOne({
+            _userName: userName.value,
+        });
+
+        if (!foundUser) {
+            // throw new Error('UserName not Found.');
+            return null;
         }
 
         return User.reconstruct(

@@ -8,7 +8,15 @@ describe('RegisterUserApplicationService', () => {
     const deleteUserApplicationService = new DeleteUserApplicationService(repository);
 
     const command: Required<RegisterUserCommand> = {
-        user: sampleUser,
+        user: {
+            userName: sampleUser.userName.value,
+            userPassword: sampleUser.userPassword.value,
+            userImage: sampleUser.userImage.value,
+        },
+    };
+
+    const deleteUserCommand = {
+        userId: sampleUser.userId.value,
     };
 
     beforeEach(() => {
@@ -20,13 +28,13 @@ describe('RegisterUserApplicationService', () => {
 
         await registerUserApplicationService.execute(command);
 
-        await deleteUserApplicationService.execute(command);
+        await deleteUserApplicationService.execute(deleteUserCommand);
         const deletedUser = await repository.getById(sampleUser.userId);
 
         expect(deletedUser).toBeNull();
     });
 
     test('throw error if not exists in DB', async () => {
-        await expect(deleteUserApplicationService.execute(command)).rejects.toThrow();
+        await expect(deleteUserApplicationService.execute(deleteUserCommand)).rejects.toThrow();
     });
 });

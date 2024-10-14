@@ -7,7 +7,7 @@ describe('GetUserApplicationService test', () => {
     const repository = new InMemoryUserRepository();
     const getUserApplicationService = new GetUserApplicationService(repository);
     const command: Required<GetUserCommand> = {
-        user: sampleUser,
+        userId: sampleUser.userId.value,
     };
 
     beforeEach(() => {
