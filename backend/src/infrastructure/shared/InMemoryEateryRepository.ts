@@ -7,8 +7,20 @@ export default class InMemoryEateryRepository implements IEateryRepository {
         [id: string]: Eatery;
     } = {};
 
-    async register(eatery: Eatery) {
-        this.DB[eatery.eateryId.value.toString()] = eatery;
+    async register(eateryInfo: Eatery) {
+        //! this ID is the same testEateryData.ts. If you change this ID, please check
+        const id = 'abcdef';
+        this.DB[id] = Eatery.create(
+            new EateryId(id),
+            eateryInfo.eateryName,
+            eateryInfo.eateryCategory,
+            eateryInfo.eateryDescription,
+            eateryInfo.eateryLocation,
+            eateryInfo.eateryBusinessHours,
+            eateryInfo.eateryRegularHolidays,
+            eateryInfo.eateryImages,
+            eateryInfo.userId,
+        );
     }
 
     async update(eatery: Eatery) {

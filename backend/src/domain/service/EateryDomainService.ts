@@ -8,16 +8,17 @@ export default class EateryDomainService {
     ) { }
 
     // already exist same data → true, no exist → false
-    async IsEateryNameDuplicate(eatery: Eatery) {
-        const duplicateEateryName = await this.eateryRepository.getById(eatery.eateryId);
-        const isDuplicateEateryName = !!duplicateEateryName;
-        return isDuplicateEateryName;
-    }
+    // async IsEateryNameDuplicate(eatery: Eatery) {
+    //     const duplicateEateryName = await this.eateryRepository.getById(eatery.eateryId);
+    //     const isDuplicateEateryName = !!duplicateEateryName;
+    //     return isDuplicateEateryName;
+    // }
 
     async registerEatery(eatery: Eatery): Promise<Eatery> {
-        if (await this.IsEateryNameDuplicate(eatery)) {
-            throw new Error('EateryName is already in use.');
-        }
+        //* need this check ?
+        // if (await this.IsEateryNameDuplicate(eatery)) {
+        //     throw new Error('EateryName is already in use.');
+        // }
         await this.eateryRepository.register(eatery);
         return eatery;
     }

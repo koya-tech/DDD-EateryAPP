@@ -7,7 +7,7 @@ export type GetEateryReviewCommand = {
     eateryReview: EateryReview;
 };
 
-export default class GetEateryApplicationService {
+export default class GetEateryReviewApplicationService {
     constructor(
         private eateryReviewRepository: IEateryReviewRepository,
     ) { }

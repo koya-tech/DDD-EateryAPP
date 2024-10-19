@@ -1,6 +1,6 @@
 import InMemoryEateryRepository from '../../../infrastructure/shared/InMemoryEateryRepository';
-import RegisterEateryApplicationService from '../registerEateryApplicationService/RegisterEateryApplicationService';
-import { sampleEatery, updatedEatery } from '../testEateryData';
+import RegisterEateryApplicationService, { RegisterEateryCommand } from '../registerEateryApplicationService/RegisterEateryApplicationService';
+import { sampleEateryFromClient, updatedEatery } from '../testEateryData';
 import UpdateEateryApplicationService, { UpdateEateryCommand } from './UpdateEateryApplicationService';
 
 describe('UpdateEateryApplicationService', () => {
@@ -8,11 +8,11 @@ describe('UpdateEateryApplicationService', () => {
     const registerEateryApplicationService = new RegisterEateryApplicationService(repository);
     const updateEateryApplicationService = new UpdateEateryApplicationService(repository);
 
-    const commandForSample: Required<UpdateEateryCommand> = {
-        eatery: sampleEatery,
+    const registerCommandForSample: Required<RegisterEateryCommand> = {
+        eatery: sampleEateryFromClient,
     };
 
-    const commandForUpdate: Required<UpdateEateryCommand> = {
+    const updateCommandForUpdate: Required<UpdateEateryCommand> = {
         eatery: updatedEatery,
     };
 
@@ -21,15 +21,16 @@ describe('UpdateEateryApplicationService', () => {
     });
 
     test('can update eatery', async () => {
-        await registerEateryApplicationService.execute(commandForSample);
+        await registerEateryApplicationService.execute(registerCommandForSample);
 
-        await updateEateryApplicationService.execute(commandForUpdate);
+        await updateEateryApplicationService.execute(updateCommandForUpdate);
         const targetEatery = await repository.getById(updatedEatery.eateryId);
 
         expect(updatedEatery).toEqual(targetEatery);
     });
 
     test('throw error if eatery not found', async () => {
-        await expect(updateEateryApplicationService.execute(commandForSample)).rejects.toThrow();
+        await expect(updateEateryApplicationService.execute(updateCommandForUpdate))
+            .rejects.toThrow();
     });
 });

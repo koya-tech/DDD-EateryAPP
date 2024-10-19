@@ -1,13 +1,10 @@
-import EateryAddress from '../valueObject/eatery/EateryAddress';
 import EateryBusinessHours from '../valueObject/eatery/EateryBusinessHours';
 import EateryCategory from '../valueObject/eatery/EateryCategory';
-import EateryCountry from '../valueObject/eatery/EateryCountry';
 import EateryDescription from '../valueObject/eatery/EateryDescription';
 import EateryId from '../valueObject/eatery/EateryId';
 import EateryImages from '../valueObject/eatery/EateryImages';
 import EateryLocation from '../valueObject/eatery/EateryLocation';
 import EateryName from '../valueObject/eatery/EateryName';
-import EateryRating from '../valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../valueObject/eatery/EateryRegularHolidays';
 import UserId from '../valueObject/user/UserId';
 
@@ -17,10 +14,10 @@ export default class Eatery {
         private _eateryName: EateryName,
         private _eateryCategory: EateryCategory,
         private _eateryDescription: EateryDescription,
-        private _eateryRating: EateryRating,
-        private _eateryAddress: EateryAddress,
+        // private _eateryRating: EateryRating,
+        // private _eateryAddress: EateryAddress,
         private _eateryLocation: EateryLocation,
-        private _eateryCountry: EateryCountry,
+        // private _eateryCountry: EateryCountry,
         private _eateryBusinessHours: EateryBusinessHours,
         private _eateryRegularHolidays: EateryRegularHolidays,
         private _eateryImages: EateryImages,
@@ -32,10 +29,10 @@ export default class Eatery {
         eateryName: EateryName,
         eateryCategory: EateryCategory,
         eateryDescription: EateryDescription,
-        eateryRating: EateryRating,
-        eateryAddress: EateryAddress,
+        // eateryRating: EateryRating,
+        // eateryAddress: EateryAddress,
         eateryLocation: EateryLocation,
-        eateryCountry: EateryCountry,
+        // eateryCountry: EateryCountry,
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
@@ -46,10 +43,10 @@ export default class Eatery {
             eateryName,
             eateryCategory,
             eateryDescription,
-            eateryRating,
-            eateryAddress,
+            // eateryRating,
+            // eateryAddress,
             eateryLocation,
-            eateryCountry,
+            // eateryCountry,
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
@@ -62,10 +59,10 @@ export default class Eatery {
         eateryName: EateryName,
         eateryCategory: EateryCategory,
         eateryDescription: EateryDescription,
-        eateryRating: EateryRating,
-        eateryAddress: EateryAddress,
+        // eateryRating: EateryRating,
+        // eateryAddress: EateryAddress,
         eateryLocation: EateryLocation,
-        eateryCountry: EateryCountry,
+        // eateryCountry: EateryCountry,
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
@@ -76,10 +73,10 @@ export default class Eatery {
             eateryName,
             eateryCategory,
             eateryDescription,
-            eateryRating,
-            eateryAddress,
+            // eateryRating,
+            // eateryAddress,
             eateryLocation,
-            eateryCountry,
+            // eateryCountry,
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
@@ -103,21 +100,21 @@ export default class Eatery {
         return this._eateryDescription;
     }
 
-    get eateryRating(): EateryRating {
-        return this._eateryRating;
-    }
+    // get eateryRating(): EateryRating {
+    //     return this._eateryRating;
+    // }
 
-    get eateryAddress(): EateryAddress {
-        return this._eateryAddress;
-    }
+    // get eateryAddress(): EateryAddress {
+    //     return this._eateryAddress;
+    // }
 
     get eateryLocation(): EateryLocation {
         return this._eateryLocation;
     }
 
-    get eateryCountry(): EateryCountry {
-        return this._eateryCountry;
-    }
+    // get eateryCountry(): EateryCountry {
+    //     return this._eateryCountry;
+    // }
 
     get eateryBusinessHours(): EateryBusinessHours {
         return this._eateryBusinessHours;

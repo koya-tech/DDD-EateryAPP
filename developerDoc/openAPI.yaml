@@ -1,3 +1,4 @@
+# shift + alt + p
 openapi: 3.0.3
 info:
   title: DDD-EateryAPP - OpenAPI 3.0
@@ -76,7 +77,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/User"
 
-  "/api/v1/user":
+  "/api/v1/users":
     post:
       tags:
         - user
@@ -235,7 +236,7 @@ paths:
                 $ref: "#/components/schemas/EateryReview"
   "/api/v1/eatery/{eateryId}/{eateryReviewId}":
     get:
-      tags: 
+      tags:
         - eateryReview
       summary: Get eatery review
       description: get eatery review
