@@ -10,32 +10,32 @@ import { EateryFormProps } from '../type';
 
 const daysOfWeek = [
     {
-        id: 'Sunday',
-        label: 'Sunday',
+        id: 'sunday',
+        label: 'sunday',
     },
     {
-        id: 'Monday',
-        label: 'Monday',
+        id: 'monday',
+        label: 'monday',
     },
     {
-        id: 'Tuesday',
-        label: 'Tuesday',
+        id: 'tuesday',
+        label: 'tuesday',
     },
     {
-        id: 'Wednesday',
-        label: 'Wednesday',
+        id: 'wednesday',
+        label: 'wednesday',
     },
     {
-        id: 'Thursday',
-        label: 'Thursday',
+        id: 'thursday',
+        label: 'thursday',
     },
     {
-        id: 'Friday',
-        label: 'Friday',
+        id: 'friday',
+        label: 'friday',
     },
     {
-        id: 'Saturday',
-        label: 'Saturday',
+        id: 'saturday',
+        label: 'saturday',
     },
 ] as const;
 

@@ -30,11 +30,11 @@ function CategorySelect({ form }: EateryFormProps) {
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectItem value="JPN">Japanese</SelectItem>
-                            <SelectItem value="CHN">Chinese</SelectItem>
-                            <SelectItem value="ITA">Italian</SelectItem>
-                            <SelectItem value="WST">Western</SelectItem>
-                            <SelectItem value="OTH">Other</SelectItem>
+                            <SelectItem value="Japanese">Japanese</SelectItem>
+                            <SelectItem value="Chinese">Chinese</SelectItem>
+                            <SelectItem value="Italian">Italian</SelectItem>
+                            <SelectItem value="Western">Western</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
                         </SelectContent>
                     </Select>
                     <FormDescription>

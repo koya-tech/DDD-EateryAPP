@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form';
 
 export interface EateryFormValues {
@@ -11,20 +12,30 @@ export interface EateryFormValues {
     eateryBusinessStartHour: string;
     eateryBusinessEndHour: string;
     eateryRegularHolidays: string[];
-    eateryImages?: File | undefined;
+    eateryImages?: FileList;
 }
 
 export interface EateryFormProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    form: UseFormReturn<EateryFormValues, any, undefined>;
+    form: UseFormReturn<{
+        eateryName: string;
+        eateryCategory: EateryCategoryEnum;
+        eateryDescription: string;
+        eateryLocationLatitude: string;
+        eateryLocationLongitude: string;
+        eateryBusinessStartHour: string;
+        eateryBusinessEndHour: string;
+        eateryRegularHolidays: string[];
+        eateryImages?: FileList | undefined;
+    }, any, undefined>;
+    // form: UseFormReturn<EateryFormValues, any, undefined>;
 }
 
 export enum EateryCategoryEnum {
-    Japanese = 'JPN',
-    Chinese = 'CHN',
-    Italian = 'ITA',
-    Western = 'WST',
-    Other = 'OTH',
+    Japanese = 'Japanese',
+    Chinese = 'Chinese',
+    Italian = 'Italian',
+    Western = 'Western',
+    Other = 'Other',
 }
 
 export enum EateryCountryEnum {

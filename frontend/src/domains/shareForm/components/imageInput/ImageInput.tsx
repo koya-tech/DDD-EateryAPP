@@ -3,29 +3,22 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormControl,
-    FormDescription,
     FormMessage,
 } from '../../../../shadcn/ui/form';
 import { Input } from '../../../../shadcn/ui/input';
 import { EateryFormProps } from '../type';
 
 function ImageInput({ form }: EateryFormProps) {
-    const fileRef = form.register('eateryImages');
     return (
         <FormField
             control={form.control}
             name="eateryImages"
-            render={() => (
+            render={({ field, fieldState }) => (
                 <FormItem>
-                    <FormLabel>Eatery Images</FormLabel>
-                    <FormControl>
-                        <Input type="file" accept="image/*" {...fileRef} />
-                    </FormControl>
-                    <FormDescription>
-                        This is your public display images. File size must be less than 5MB
-                    </FormDescription>
-                    <FormMessage />
+                    <FormLabel htmlFor="image">Upload Image</FormLabel>
+                    <Input type="file" id="image" accept="image/*" onChange={(e) => field.onChange(e.target.files)} />
+                    {fieldState.error
+                        && <FormMessage>{fieldState.error.message}</FormMessage>}
                 </FormItem>
             )}
         />

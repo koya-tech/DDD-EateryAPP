@@ -8,18 +8,20 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createContext, useMemo, useState } from 'react';
 import { Button } from '../../shadcn/ui/button';
-import { Form } from '../../shadcn/ui/form';
-import NameInput from './components/nameInput/NameInput';
-import { EateryCategoryEnum } from './components/type';
-import CategorySelect from './components/categorySelect/CategorySelect';
+import {
+    Form,
+} from '../../shadcn/ui/form';
 import DescriptionTextarea from './components/descriptionTextarea/descriptionTextarea';
+import { EateryCategoryEnum } from './components/type';
+import BusinessHourInput from './components/businessHourInput/businessHourInput';
+import CategorySelect from './components/categorySelect/CategorySelect';
 // eslint-disable-next-line import/no-cycle
 import LeafletForm from './components/leafletForm/leafletForm';
-import BusinessHourInput from './components/businessHourInput/businessHourInput';
+import NameInput from './components/nameInput/NameInput';
 import RegularHolidays from './components/regularHolidays/regularHolidays';
 import ImageInput from './components/imageInput/ImageInput';
 
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 5; // 5MB
+// const MAX_UPLOAD_SIZE = 1024 * 1024 * 5; // 5MB
 
 const formSchema = z.object({
     eateryName: z.string().min(1).max(50),
@@ -32,9 +34,8 @@ const formSchema = z.object({
     eateryBusinessStartHour: z.string(),
     eateryBusinessEndHour: z.string(),
     eateryRegularHolidays: z.array(z.string()),
-    eateryImages: z.instanceof(File).optional()
-        .refine((file) => !file || file.size < MAX_UPLOAD_SIZE, 'File size must be less than 5MB')
-        .refine((file) => !file || file.type.startsWith('image/'), 'File must be an image'),
+    eateryImages: z.instanceof(FileList).optional()
+        .refine((files) => files && files.length > 0, { message: 'Image is required' }),
 });
 
 const center = {
@@ -52,13 +53,12 @@ export const LocationContext = createContext<{
 
 function ShareForm() {
     const [position, setPosition] = useState(center);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const locationContextValue = useMemo(() => ({ position, setPosition }), [position]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             eateryName: '',
-            eateryCategory: EateryCategoryEnum.Japanese,
+            // eateryCategory: EateryCategoryEnum.Japanese,
             eateryDescription: '',
             // eateryAddress: '',
             eateryLocationLatitude: '',
@@ -67,57 +67,52 @@ function ShareForm() {
             eateryBusinessStartHour: '',
             eateryBusinessEndHour: '',
             eateryRegularHolidays: [],
-            // eateryImages: [],
+            // eateryImages: FileList[],
         },
     });
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
-        setIsSubmitting(true);
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        const formData = new FormData();
+        formData.append('eateryName', data.eateryName);
+        formData.append('eateryCategory', data.eateryCategory);
+        formData.append('eateryDescription', data.eateryDescription);
+        formData.append('eateryLocationLatitude', position.lat.toString());
+        formData.append('eateryLocationLongitude', position.lng.toString());
+        formData.append('eateryBusinessStartHour', data.eateryBusinessStartHour);
+        formData.append('eateryBusinessEndHour', data.eateryBusinessEndHour);
+        formData.append('eateryRegularHolidays', JSON.stringify(data.eateryRegularHolidays));
+        if (data.eateryImages && data.eateryImages.length > 0) {
+            formData.append('eateryImages', data.eateryImages[0]);
+        }
+
         try {
-            const submitData = {
-                ...values,
-                eateryLocationLatitude: position.lat.toString(),
-                eateryLocationLongitude: position.lng.toString(),
-            };
             const response = await fetch('http://localhost:3001/api/v1/eatery', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(submitData),
+                body: formData,
             });
 
-            if (!response.ok) {
-                throw new Error('fail to send');
+            if (response.ok) {
+                console.log('File successfully uploaded');
+            } else {
+                console.error('Error uploading file');
             }
-
-            form.reset();
         } catch (error) {
-            console.error('Submit error:', error);
-        } finally {
-            setIsSubmitting(false);
+            console.error('Error:', error);
         }
-    }
+    };
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <LocationContext.Provider value={locationContextValue}>
-                    <NameInput form={form} />
-                    <CategorySelect form={form} />
-                    <DescriptionTextarea form={form} />
-                    <LeafletForm />
-                    <BusinessHourInput form={form} />
-                    <RegularHolidays form={form} />
-                    <ImageInput form={form} />
-                </LocationContext.Provider>
-                <Button
-                    disabled={isSubmitting}
-                    type="submit"
-                >
-                    {isSubmitting ? 'sending...' : 'submit'}
-                </Button>
-            </form>
+            <LocationContext.Provider value={locationContextValue}>
+                <NameInput form={form} />
+                <CategorySelect form={form} />
+                <DescriptionTextarea form={form} />
+                <LeafletForm />
+                <BusinessHourInput form={form} />
+                <RegularHolidays form={form} />
+                <ImageInput form={form} />
+            </LocationContext.Provider>
+            <Button type="submit" onClick={form.handleSubmit(onSubmit)}>Submit</Button>
         </Form>
     );
 }

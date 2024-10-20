@@ -20,6 +20,7 @@ function DescriptionTextarea({ form }: EateryFormProps) {
                     <FormLabel>Eatery Description</FormLabel>
                     <FormControl>
                         <Textarea
+                            id="eateryDescription"
                             placeholder="Tell us a little bit about your eatery"
                             className="resize-none"
                             {...field}
