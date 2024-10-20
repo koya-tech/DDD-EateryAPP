@@ -48,7 +48,7 @@ describe('Eatery API Endpoints', () => {
             eateryLocationLongitude: '0',
             eateryBusinessStartHour: '09:00',
             eateryBusinessEndHour: '21:00',
-            eateryRegularHolidays: ['sunday', 'monday'],
+            eateryRegularHolidays: '["sunday", "monday"]',
             userId: '12345',
         };
 

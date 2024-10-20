@@ -24,8 +24,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
             _eateryLocation: {
                 type: MongodbSetting.geoJsonType,
                 coordinates: [
-                    eatery.eateryLocation.value[0],
                     eatery.eateryLocation.value[1],
+                    eatery.eateryLocation.value[0],
                 ],
             },
             // _eateryCountry: eatery.eateryCountry.value,
@@ -50,8 +50,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 _eateryLocation: {
                     type: MongodbSetting.geoJsonType,
                     coordinates: [
-                        eatery.eateryLocation.value[0],
                         eatery.eateryLocation.value[1],
+                        eatery.eateryLocation.value[0],
                     ],
                 },
                 // _eateryCountry: eatery.eateryCountry.value,
@@ -98,8 +98,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
             // new EateryAddress(foundEatery._eateryAddress),
             new EateryLocation(
                 [
-                    foundLocationArray.coordinates[0],
                     foundLocationArray.coordinates[1],
+                    foundLocationArray.coordinates[0],
                 ],
             ),
             // new EateryCountry(foundEatery._eateryCountry),
@@ -140,8 +140,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 // new EateryAddress(foundEatery._eateryAddress),
                 new EateryLocation(
                     [
-                        foundLocationArray.coordinates[0],
                         foundLocationArray.coordinates[1],
+                        foundLocationArray.coordinates[0],
                     ],
                 ),
                 // new EateryCountry(foundEatery._eateryCountry),

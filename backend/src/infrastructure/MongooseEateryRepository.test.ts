@@ -75,6 +75,8 @@ describe('MongooseEateryRepository', () => {
         expect(createdEntity?.eateryDescription.equals(eateryDescription)).toBeTruthy();
         // expect(createdEntity?.eateryRating.equals(eateryRating)).toBeTruthy();
         // expect(createdEntity?.eateryAddress.equals(eateryAddress)).toBeTruthy();
+        console.log(createdEntity?.eateryLocation);
+        console.log(eateryLocation);
         expect(createdEntity?.eateryLocation.equals(eateryLocation)).toBeTruthy();
         // expect(createdEntity?.eateryCountry.equals(eateryCountry)).toBeTruthy();
         expect(createdEntity?.userId.equals(userId)).toBeTruthy();

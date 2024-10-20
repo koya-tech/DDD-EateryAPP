@@ -44,7 +44,7 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryLocationLongitude,
             eateryBusinessStartHour,
             eateryBusinessEndHour,
-            eateryRegularHolidays,
+            eateryRegularHolidays: eateryRegularHolidaysParsed,
             userId,
         } = req.body as {
             eateryName: string;
@@ -54,10 +54,12 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryLocationLongitude: string;
             eateryBusinessStartHour: string;
             eateryBusinessEndHour: string;
-            eateryRegularHolidays: string[];
+            eateryRegularHolidays: string;
             userId: string;
         };
-
+        console.log(req.body);
+        const eateryRegularHolidays = JSON.parse(eateryRegularHolidaysParsed) as string[];
+        console.log(eateryRegularHolidays);
         let imageUrl: string[] = [];
 
         if (req.files && Array.isArray(req.files)) {
@@ -94,6 +96,7 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryImages: imageUrl || [],
             userId,
         };
+        console.log(eatery);
 
         const registerEateryApplicationService = new RegisterEateryApplicationService(repository);
         const registerEateryCommand: RegisterEateryCommand = {
@@ -104,6 +107,7 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
 
         res.status(200).json({ message: 'POST /eatery' });
     } catch (error) {
+        console.error('Error:', error);
         res.status(400).json({ message: (error as Error).message });
     }
 });

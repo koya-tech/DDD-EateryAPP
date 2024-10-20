@@ -16,7 +16,7 @@ export default class EateryLocation extends ValueObject<[number, number], 'Eater
 
     // eslint-disable-next-line class-methods-use-this
     protected validate(value: [number, number]): void {
-        const [latitude, longitude] = value;
+        const [longitude, latitude] = value;
 
         if (longitude < EateryLocation.LONGITUDE_MIN || longitude > EateryLocation.LONGITUDE_MAX) {
             throw new Error('The LONGITUDE is not correct.');

@@ -40,8 +40,8 @@ export default class RegisterEateryApplicationService {
             new EateryCategory(command.eatery.eateryCategory),
             new EateryDescription(command.eatery.eateryDescription),
             new EateryLocation([
-                parseFloat(command.eatery.eateryLocationLatitude),
                 parseFloat(command.eatery.eateryLocationLongitude),
+                parseFloat(command.eatery.eateryLocationLatitude),
             ]),
             new EateryBusinessHours([
                 command.eatery.eateryBusinessStartHour,
