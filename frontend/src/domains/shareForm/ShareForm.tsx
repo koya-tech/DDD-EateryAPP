@@ -52,6 +52,7 @@ export const LocationContext = createContext<{
 
 function ShareForm() {
     const [position, setPosition] = useState(center);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const locationContextValue = useMemo(() => ({ position, setPosition }), [position]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -70,11 +71,32 @@ function ShareForm() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log('position:', position);
-        console.log(values);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true);
+        try {
+            const submitData = {
+                ...values,
+                eateryLocationLatitude: position.lat.toString(),
+                eateryLocationLongitude: position.lng.toString(),
+            };
+            const response = await fetch('http://localhost:3001/api/v1/eatery', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submitData),
+            });
+
+            if (!response.ok) {
+                throw new Error('fail to send');
+            }
+
+            form.reset();
+        } catch (error) {
+            console.error('Submit error:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     return (
@@ -89,7 +111,12 @@ function ShareForm() {
                     <RegularHolidays form={form} />
                     <ImageInput form={form} />
                 </LocationContext.Provider>
-                <Button type="submit">Submit</Button>
+                <Button
+                    disabled={isSubmitting}
+                    type="submit"
+                >
+                    {isSubmitting ? 'sending...' : 'submit'}
+                </Button>
             </form>
         </Form>
     );

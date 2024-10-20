@@ -6,6 +6,7 @@ import Header from './domains/common/Header/Header';
 import Footer from './domains/common/Footer/Footer';
 import NotFound from './domains/common/notFound/NotFound';
 import Authentication from './domains/authentication/Authentication';
+import ShareForm from './domains/shareForm/ShareForm';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Authentication />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/share" element={<ShareForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
