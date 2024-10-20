@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import dotenv from 'dotenv';
 import fs from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
 import MongooseEateryRepository from '../../../../infrastructure/MongooseEateryRepository';
@@ -8,6 +10,8 @@ import RegisterEateryApplicationService, { RegisterEateryCommand } from '../../.
 
 const eateryRouter = Router();
 const repository = new MongooseEateryRepository();
+
+dotenv.config({ path: '.env.local' });
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -63,6 +67,7 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
                         const result = await cloudinary.uploader.upload(file.path, {
                             folder: 'eateries',
                         });
+                        console.log(file.path);
                         await fs.promises.unlink(file.path);
                         return result.secure_url;
                     } catch (error) {
