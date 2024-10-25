@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import express from 'express';
 import router from './routes';
+import authRouter from './authRouter';
 
 dotenv.config({ path: '.env.local' });
 
@@ -16,6 +17,7 @@ db.once('open', () => console.log('DB connection successful'));
 
 app.use(express.json());
 app.use('/api/v1', router);
+app.use('/auth', authRouter);
 
 // const repository = new MongooseUserRepository();
 

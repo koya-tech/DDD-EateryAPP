@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import AuthForm from './components/authForm';
+import GoogleLogin from './components/googleAuth';
 // import cn from '../../lib/utils';
 // import { buttonVariants } from '../../shadcn/ui/button';
 
@@ -26,6 +27,7 @@ export default function AuthenticationPage() {
                         </p>
                     </div>
                     <AuthForm />
+                    <GoogleLogin />
                     <p className="px-8 text-center text-sm text-muted-foreground">
                         By clicking continue, you agree to our
                         <br />

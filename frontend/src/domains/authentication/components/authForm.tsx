@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { ImGithub } from 'react-icons/im';
 import cn from '../../../lib/utils';
@@ -9,7 +9,7 @@ import { Label } from '../../../shadcn/ui/label';
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 function AuthForm({ className }: UserAuthFormProps) {
-    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
