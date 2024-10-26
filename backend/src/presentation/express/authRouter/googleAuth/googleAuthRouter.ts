@@ -44,11 +44,35 @@ googleAuthRouter.get('/callback', async (req, res) => {
         });
 
         // Send the token as a cookie or in the response
-        res.cookie('token', userJwt, { httpOnly: true });
-        res.send('User authenticated successfully');
+        res.cookie('token', userJwt, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+        });
+        // res.send('User authenticated successfully');
+        res.redirect('http://localhost:5173');
     } catch (error) {
         console.error('Error exchanging code for tokens:', error);
         res.status(500).send('Authentication failed');
+    }
+});
+
+// eslint-disable-next-line consistent-return
+googleAuthRouter.get('/checkStatus', (req, res) => {
+    // console.log('req : ', req);
+    const { token } = req.cookies;
+    console.log('req.cookies :', req.cookies);
+    console.log('token :', token);
+    if (!token) {
+        return res.status(401).json({ isLoggedIn: false });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+        console.log('decoded :', decoded);
+        res.status(200).json({ isLoggedIn: true, user: decoded });
+    } catch (error) {
+        res.status(401).json({ isLoggedIn: false });
     }
 });
 

@@ -2,12 +2,24 @@ import mongoose from 'mongoose';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dotenv from 'dotenv';
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import router from './routes';
 import authRouter from './authRouter';
 
 dotenv.config({ path: '.env.local' });
 
 const app = express();
+app.use(cookieParser());
+app.use(express.json());
+
+app.use(
+    cors({
+        origin: 'http://localhost:5173', // Frontend origin
+        credentials: true, // Allows cookies and headers to be sent
+    }),
+);
+
 const port = 3001;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -15,7 +27,6 @@ mongoose.connect(`mongodb+srv://${process.env.mongoDBUserName}:${process.env.mon
 const db = mongoose.connection;
 db.once('open', () => console.log('DB connection successful'));
 
-app.use(express.json());
 app.use('/api/v1', router);
 app.use('/auth', authRouter);
 
