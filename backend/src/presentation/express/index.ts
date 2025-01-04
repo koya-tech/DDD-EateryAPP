@@ -1,3 +1,4 @@
+// import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import dotenv from 'dotenv';
@@ -6,6 +7,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import router from './routes';
 import authRouter from './authRouter';
+// import User from '../../domain/entities/User';
+// import UserName from '../../domain/valueObject/user/UserName';
+// import UserPassword from '../../domain/valueObject/user/UserPassword';
+// import UserImage from '../../domain/valueObject/user/UserImage';
+// import UserId from '../../domain/valueObject/user/UserId';
+// import MongooseUserRepository from '../../infrastructure/MongooseUserRepository';
 
 dotenv.config({ path: '.env.local' });
 
@@ -46,10 +53,10 @@ app.use('/auth', authRouter);
 // );
 
 // async function saveUser(user: User) {
-//     const test = repository.save(user);
+//     const test = repository.register(user);
 //     console.log(`saved Info${test}`);
 // }
-// saveUser(saveUserInfo);
+// saveUser(updateUser);
 
 // Insert the article in our MongoDB database
 // savedUser.save();

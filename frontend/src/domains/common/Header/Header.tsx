@@ -1,41 +1,43 @@
 import { BiBowlRice } from 'react-icons/bi';
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { Button } from '../../../shadcn/ui/button';
 import { routeList } from '../constants/index';
 import BulgerMenu from './components/burgerMenu/BurgerMenu';
+import useAuth from '../../authentication/components/useAuth';
 
 function Header() {
     const location = useLocation();
     const isHome = location.pathname === '/';
 
-    const [isLogin, setIsLogin] = useState(false);
-    useEffect(() => {
-        const checkLoginStatus = async () => {
-            try {
-                const response = await fetch('http://localhost:3001/auth/google/checkStatus', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                console.log('response :', response);
+    const { isLoggedIn } = useAuth();
 
-                if (response.ok) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    const data: { isLoggedIn: boolean } = await response.json();
-                    console.log('data : ', data);
-                    setIsLogin(data.isLoggedIn);
-                } else {
-                    setIsLogin(false);
-                }
-            } catch (error) {
-                console.error('Error checking login status:', error);
-                setIsLogin(false);
-            }
-        };
+    // const [isLogin, setIsLogin] = useState(false);
+    // useEffect(() => {
+    //     const checkLoginStatus = async () => {
+    //         try {
+    //             const response = await fetch('http://localhost:3001/auth/google/checkStatus', {
+    //                 method: 'GET',
+    //                 credentials: 'include',
+    //             });
+    //             console.log('response :', response);
 
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        checkLoginStatus();
-    }, [location]);
+    //             if (response.ok) {
+    //                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    //                 const data: { isLoggedIn: boolean } = await response.json();
+    //                 console.log('data : ', data);
+    //                 setIsLogin(data.isLoggedIn);
+    //             } else {
+    //                 setIsLogin(false);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error checking login status:', error);
+    //             setIsLogin(false);
+    //         }
+    //     };
+
+    //     // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    //     checkLoginStatus();
+    // }, [location]);
 
     return (
         <div className={`p-7 ${isHome ? 'bg-black' : 'bg-transparent'}`}>
@@ -53,9 +55,9 @@ function Header() {
                     ))}
                 </div>
                 <div className="hidden md:flex">
-                    {isLogin ? (
+                    {isLoggedIn ? (
                         <Link to="/profile" className="text-white">
-                            Profile
+                            <Button className="bg-black">Profile</Button>
                         </Link>
                     ) : (
                         <Link to="/auth">

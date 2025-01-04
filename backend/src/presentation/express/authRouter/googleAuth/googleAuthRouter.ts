@@ -7,13 +7,11 @@ import jwt from 'jsonwebtoken';
 dotenv.config({ path: '.env.local' });
 
 const googleAuthRouter = Router();
-// Step 1: Redirect to Google OAuth2 login page
 googleAuthRouter.get('/', (req, res) => {
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=${process.env.BACKEND_REDIRECT_URI}&response_type=code&scope=openid profile email`;
     res.redirect(googleAuthUrl);
 });
 
-// Step 2: Handle Google OAuth2 callback
 // eslint-disable-next-line consistent-return
 googleAuthRouter.get('/callback', async (req, res) => {
     const code = req.query.code as string;
@@ -23,7 +21,6 @@ googleAuthRouter.get('/callback', async (req, res) => {
     }
 
     try {
-        // Step 3: Exchange authorization code for tokens
         const { data } = await axios.post('https://oauth2.googleapis.com/token', {
             code,
             client_id: process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -34,16 +31,11 @@ googleAuthRouter.get('/callback', async (req, res) => {
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const { id_token } = data;
-
-        // Step 4: (Optional) Verify and decode the ID token
         const decoded = jwt.decode(id_token);
-
-        // Step 5: Create your own JWT or session token for user
         const userJwt = jwt.sign({ user: decoded }, process.env.JWT_SECRET!, {
-            expiresIn: '1h', // Set token expiration
+            expiresIn: '1h',
         });
 
-        // Send the token as a cookie or in the response
         res.cookie('token', userJwt, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -57,19 +49,21 @@ googleAuthRouter.get('/callback', async (req, res) => {
     }
 });
 
+googleAuthRouter.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('http://localhost:5173');
+});
+
 // eslint-disable-next-line consistent-return
 googleAuthRouter.get('/checkStatus', (req, res) => {
-    // console.log('req : ', req);
     const { token } = req.cookies;
-    console.log('req.cookies :', req.cookies);
-    console.log('token :', token);
     if (!token) {
         return res.status(401).json({ isLoggedIn: false });
     }
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-        console.log('decoded :', decoded);
+        // console.log('decoded :', decoded);
         res.status(200).json({ isLoggedIn: true, user: decoded });
     } catch (error) {
         res.status(401).json({ isLoggedIn: false });

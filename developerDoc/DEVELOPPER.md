@@ -25,3 +25,7 @@ EATERY
 - EateryBusinessHours
 - EateryRegularHolidays
 - EateryImages
+
+### path needed to auth
+- Share
+- Profile

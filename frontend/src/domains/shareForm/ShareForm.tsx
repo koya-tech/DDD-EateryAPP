@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createContext, useMemo, useState } from 'react';
+import { redirect } from 'react-router-dom';
 import { Button } from '../../shadcn/ui/button';
 import {
     Form,
@@ -20,6 +21,7 @@ import LeafletForm from './components/leafletForm/leafletForm';
 import NameInput from './components/nameInput/NameInput';
 import RegularHolidays from './components/regularHolidays/regularHolidays';
 import ImageInput from './components/imageInput/ImageInput';
+import useAuth from '../authentication/components/useAuth';
 
 // const MAX_UPLOAD_SIZE = 1024 * 1024 * 5; // 5MB
 
@@ -52,6 +54,10 @@ export const LocationContext = createContext<{
 });
 
 function ShareForm() {
+    const { isLoggedIn } = useAuth();
+    if (!isLoggedIn) {
+        redirect('/auth');
+    }
     const [position, setPosition] = useState(center);
     const locationContextValue = useMemo(() => ({ position, setPosition }), [position]);
     const form = useForm<z.infer<typeof formSchema>>({
