@@ -45,7 +45,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryBusinessStartHour,
             eateryBusinessEndHour,
             eateryRegularHolidays: eateryRegularHolidaysParsed,
-            userId,
         } = req.body as {
             eateryName: string;
             eateryCategory: string;
@@ -55,7 +54,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryBusinessStartHour: string;
             eateryBusinessEndHour: string;
             eateryRegularHolidays: string;
-            userId: string;
         };
         console.log(req.body);
         const eateryRegularHolidays = JSON.parse(eateryRegularHolidaysParsed) as string[];
@@ -94,7 +92,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryBusinessEndHour,
             eateryRegularHolidays,
             eateryImages: imageUrl || [],
-            userId,
         };
         console.log(eatery);
 
