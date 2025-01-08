@@ -8,7 +8,6 @@ import EateryImages from '../domain/valueObject/eatery/EateryImages';
 import EateryLocation from '../domain/valueObject/eatery/EateryLocation';
 import EateryName from '../domain/valueObject/eatery/EateryName';
 import EateryRegularHolidays from '../domain/valueObject/eatery/EateryRegularHolidays';
-import UserId from '../domain/valueObject/user/UserId';
 import EateryModel from '../external/mongoose/model/EateryModel';
 import MongodbSetting from './MongodbSetting';
 
@@ -32,7 +31,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
             _eateryBusinessHours: eatery.eateryBusinessHours.value,
             _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
             _eateryImages: eatery.eateryImages.value,
-            _userId: eatery.userId.value,
         });
         await savedEatery.save();
     }
@@ -58,7 +56,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 _eateryBusinessHours: eatery.eateryBusinessHours.value,
                 _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
                 _eateryImages: eatery.eateryImages.value,
-                _userId: eatery.userId.value,
             },
             { new: true },
         ).exec();
@@ -111,7 +108,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
             ),
             new EateryRegularHolidays(foundEatery._eateryRegularHolidays),
             new EateryImages(foundEatery._eateryImages),
-            new UserId(foundEatery._userId),
         );
     }
 
@@ -153,7 +149,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 ),
                 new EateryRegularHolidays(foundEatery._eateryRegularHolidays),
                 new EateryImages(foundEatery._eateryImages),
-                new UserId(foundEatery._userId),
             );
         });
     }

@@ -23,8 +23,6 @@ export default class EateryDto {
 
     public readonly eateryImages: string[];
 
-    public readonly userId: string;
-
     constructor(eatery: Eatery) {
         this.eateryId = eatery.eateryId.value;
         this.eateryName = eatery.eateryName.value;
@@ -37,6 +35,5 @@ export default class EateryDto {
         this.eateryBusinessHours = eatery.eateryBusinessHours.value;
         this.eateryRegularHolidays = eatery.eateryRegularHolidays.value;
         this.eateryImages = eatery.eateryImages.value;
-        this.userId = eatery.userId.value;
     }
 }

@@ -19,7 +19,6 @@ export default class InMemoryEateryRepository implements IEateryRepository {
             eateryInfo.eateryBusinessHours,
             eateryInfo.eateryRegularHolidays,
             eateryInfo.eateryImages,
-            eateryInfo.userId,
         );
     }
 

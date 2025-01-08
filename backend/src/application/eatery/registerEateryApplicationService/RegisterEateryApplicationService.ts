@@ -9,7 +9,6 @@ import EateryImages from '../../../domain/valueObject/eatery/EateryImages';
 import EateryLocation from '../../../domain/valueObject/eatery/EateryLocation';
 import EateryName from '../../../domain/valueObject/eatery/EateryName';
 import EateryRegularHolidays from '../../../domain/valueObject/eatery/EateryRegularHolidays';
-import UserId from '../../../domain/valueObject/user/UserId';
 
 export type RegisterEateryCommand = {
     eatery: {
@@ -22,7 +21,6 @@ export type RegisterEateryCommand = {
         eateryBusinessEndHour: string;
         eateryRegularHolidays: string[];
         eateryImages: string[];
-        userId: string;
     };
 };
 
@@ -49,7 +47,6 @@ export default class RegisterEateryApplicationService {
             ]),
             new EateryRegularHolidays(command.eatery.eateryRegularHolidays),
             new EateryImages(command.eatery.eateryImages),
-            new UserId(command.eatery.userId),
         ));
     }
 }

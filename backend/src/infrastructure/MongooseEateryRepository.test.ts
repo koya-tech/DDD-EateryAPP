@@ -13,7 +13,6 @@ import EateryLocation from '../domain/valueObject/eatery/EateryLocation';
 import EateryName from '../domain/valueObject/eatery/EateryName';
 // import EateryRating from '../domain/valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../domain/valueObject/eatery/EateryRegularHolidays';
-import UserId from '../domain/valueObject/user/UserId';
 
 dotenv.config({ path: '.env.local' });
 
@@ -41,7 +40,6 @@ describe('MongooseEateryRepository', () => {
     const eateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
     const eateryRegularHolidays = new EateryRegularHolidays(['sunday']);
     const eateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
-    const userId = new UserId('userId');
 
     const eatery = Eatery.create(
         eateryId,
@@ -55,7 +53,6 @@ describe('MongooseEateryRepository', () => {
         eateryBusinessHours,
         eateryRegularHolidays,
         eateryImages,
-        userId,
     );
 
     const repository = new MongooseEateryRepository();
@@ -75,11 +72,8 @@ describe('MongooseEateryRepository', () => {
         expect(createdEntity?.eateryDescription.equals(eateryDescription)).toBeTruthy();
         // expect(createdEntity?.eateryRating.equals(eateryRating)).toBeTruthy();
         // expect(createdEntity?.eateryAddress.equals(eateryAddress)).toBeTruthy();
-        console.log(createdEntity?.eateryLocation);
-        console.log(eateryLocation);
         expect(createdEntity?.eateryLocation.equals(eateryLocation)).toBeTruthy();
         // expect(createdEntity?.eateryCountry.equals(eateryCountry)).toBeTruthy();
-        expect(createdEntity?.userId.equals(userId)).toBeTruthy();
     });
 
     test('can update about eatery info', async () => {
@@ -100,7 +94,6 @@ describe('MongooseEateryRepository', () => {
         const updatedEateryBusinessHours = new EateryBusinessHours(['05:00', '17:00']);
         const updatedEateryRegularHolidays = new EateryRegularHolidays(['saturday']);
         const updatedEateryImages = new EateryImages(['image1update.jpg', 'image2update.jpg']);
-        const updatedUserId = new UserId('updated userId');
         const updatedEatery = Eatery.create(
             eateryList[0].eateryId,
             updatedEateryName,
@@ -113,7 +106,6 @@ describe('MongooseEateryRepository', () => {
             updatedEateryBusinessHours,
             updatedEateryRegularHolidays,
             updatedEateryImages,
-            updatedUserId,
         );
 
         await repository.update(updatedEatery);
@@ -127,7 +119,6 @@ describe('MongooseEateryRepository', () => {
         // expect(createdEntity?.eateryAddress.equals(updatedEateryAddress)).toBeTruthy();
         expect(createdEntity?.eateryLocation.equals(updatedEateryLocation)).toBeTruthy();
         // expect(createdEntity?.eateryCountry.equals(updatedEateryCountry)).toBeTruthy();
-        expect(createdEntity?.userId.equals(updatedUserId)).toBeTruthy();
     });
 
     test('can delete eatery info', async () => {

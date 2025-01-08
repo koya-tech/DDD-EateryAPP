@@ -7,7 +7,6 @@ import EateryImages from '../../domain/valueObject/eatery/EateryImages';
 import EateryLocation from '../../domain/valueObject/eatery/EateryLocation';
 import EateryName from '../../domain/valueObject/eatery/EateryName';
 import EateryRegularHolidays from '../../domain/valueObject/eatery/EateryRegularHolidays';
-import UserId from '../../domain/valueObject/user/UserId';
 
 // However, use same ID
 const eateryId = new EateryId('abcdef');
@@ -23,7 +22,6 @@ const sampleEateryLocation = new EateryLocation([56, 78]);
 const sampleEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const sampleEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const sampleEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
-const sampleUserId = new UserId('sampleUserId');
 
 export const sampleEatery = Eatery.create(
     eateryId,
@@ -37,7 +35,6 @@ export const sampleEatery = Eatery.create(
     sampleEateryBusinessHours,
     sampleEateryRegularHolidays,
     sampleEateryImages,
-    sampleUserId,
 );
 
 export const sampleEateryFromClient = {
@@ -50,7 +47,6 @@ export const sampleEateryFromClient = {
     eateryBusinessEndHour: sampleEateryBusinessHours.value[1],
     eateryRegularHolidays: sampleEateryRegularHolidays.value,
     eateryImages: sampleEateryImages.value,
-    userId: sampleUserId.value,
 };
 
 // This is a sample for update test data
@@ -64,7 +60,6 @@ const updatedEateryLocation = new EateryLocation([56, 78]);
 const updatedEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const updatedEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const updatedEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
-const updatedUserId = new UserId('updated userId');
 
 export const updatedEatery = Eatery.create(
     eateryId,
@@ -78,7 +73,6 @@ export const updatedEatery = Eatery.create(
     updatedEateryBusinessHours,
     updatedEateryRegularHolidays,
     updatedEateryImages,
-    updatedUserId,
 );
 
 // This is a sample of completely different sample data
@@ -93,7 +87,6 @@ const differentEateryLocation = new EateryLocation([56, 78]);
 const differentEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const differentEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const differentEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
-const differentUserId = new UserId('lmnop');
 
 export const differentEatery = Eatery.create(
     differentEateryId,
@@ -107,5 +100,4 @@ export const differentEatery = Eatery.create(
     differentEateryBusinessHours,
     differentEateryRegularHolidays,
     differentEateryImages,
-    differentUserId,
 );
