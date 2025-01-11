@@ -1,4 +1,4 @@
-type EateryCardProps = {
+type EateryType = {
     eateryId: string;
 
     eateryName: string;
@@ -15,15 +15,11 @@ type EateryCardProps = {
 
     // eateryCountry: string;
 
-    eateryBusinessStartHour: string;
-
-    eateryBusinessEndHour: string;
+    eateryBusinessHours: string[];
 
     eateryRegularHolidays: string[];
 
     eateryImages: string[];
-
-    onClick: () => void;
 };
 
-export default EateryCardProps;
+export default EateryType;

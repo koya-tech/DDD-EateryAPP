@@ -46,4 +46,13 @@ export default class EateryDomainService {
         }
         return targetEatery;
     }
+
+    async getAllEateries(): Promise<Eatery[]> {
+        const eateries = await this.eateryRepository.get();
+        console.log('eateries@EateryDomainService', eateries);
+        if (!eateries) {
+            return [];
+        }
+        return eateries;
+    }
 }

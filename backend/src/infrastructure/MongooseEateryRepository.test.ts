@@ -35,7 +35,7 @@ describe('MongooseEateryRepository', () => {
     const eateryDescription = new EateryDescription('Description');
     // const eateryRating = new EateryRating(4.5);
     // const eateryAddress = new EateryAddress('123 Test St');
-    const eateryLocation = new EateryLocation([56, 78]);
+    const eateryLocation = new EateryLocation([78, 56]);
     // const eateryCountry = new EateryCountry('JPN');
     const eateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
     const eateryRegularHolidays = new EateryRegularHolidays(['sunday']);
@@ -72,7 +72,7 @@ describe('MongooseEateryRepository', () => {
         expect(createdEntity?.eateryDescription.equals(eateryDescription)).toBeTruthy();
         // expect(createdEntity?.eateryRating.equals(eateryRating)).toBeTruthy();
         // expect(createdEntity?.eateryAddress.equals(eateryAddress)).toBeTruthy();
-        expect(createdEntity?.eateryLocation.equals(eateryLocation)).toBeTruthy();
+        expect(createdEntity?.eateryLocation.equals(new EateryLocation([56, 78]))).toBeTruthy();
         // expect(createdEntity?.eateryCountry.equals(eateryCountry)).toBeTruthy();
     });
 

@@ -5,6 +5,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
+import { promises as fs } from 'fs';
 import eateryRouter from './eateryRouter';
 
 jest.mock('cloudinary');
@@ -33,7 +34,18 @@ describe('Eatery API Endpoints', () => {
     afterAll(async () => {
         await mongoose.disconnect();
         await mongoServer.stop();
-    });
+
+        const uploadDir = path.join(__dirname, '../../../../../uploads'); // `upload` ディレクトリのパスを指定
+        try {
+            const files = await fs.readdir(uploadDir); // ディレクトリ内の全ファイルを取得
+            await Promise.all(
+                files.map((file) => fs.unlink(path.join(uploadDir, file))), // 各ファイルを削除
+            );
+            console.log('Upload directory files cleaned up.');
+        } catch (err) {
+            console.error('Error cleaning up upload directory:', err);
+        }
+        });
 
     afterEach(() => {
         jest.clearAllMocks();

@@ -19,4 +19,12 @@ export default class GetEateryApplicationService {
 
         return new EateryDTO(targetEatery);
     }
+
+    async executeAll(): Promise<EateryDTO[]> {
+        const eateryDomainService = await new EateryDomainService(this.eateryRepository);
+
+        const eateries = await eateryDomainService.getAllEateries();
+
+        return eateries.map((eatery) => new EateryDTO(eatery));
+    }
 }

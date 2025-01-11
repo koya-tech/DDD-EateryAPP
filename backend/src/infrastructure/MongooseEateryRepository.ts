@@ -114,6 +114,7 @@ export default class MongooseEateryRepository implements IEateryRepository {
     // eslint-disable-next-line class-methods-use-this
     async get(): Promise<Eatery[] | null> {
         const foundEateries = await EateryModel.find().exec();
+        console.log('foundEateries@MongooseEateryRepository', foundEateries);
         if (!foundEateries || foundEateries.length === 0) {
             return null;
         }
@@ -136,8 +137,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 // new EateryAddress(foundEatery._eateryAddress),
                 new EateryLocation(
                     [
-                        foundLocationArray.coordinates[1],
                         foundLocationArray.coordinates[0],
+                        foundLocationArray.coordinates[1],
                     ],
                 ),
                 // new EateryCountry(foundEatery._eateryCountry),

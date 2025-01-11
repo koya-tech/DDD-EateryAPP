@@ -7,6 +7,7 @@ import fs from 'fs';
 import { v2 as cloudinary } from 'cloudinary';
 import MongooseEateryRepository from '../../../../infrastructure/MongooseEateryRepository';
 import RegisterEateryApplicationService, { RegisterEateryCommand } from '../../../../application/eatery/registerEateryApplicationService/RegisterEateryApplicationService';
+import GetEateryApplicationService from '../../../../application/eatery/getEateryApplicationService/GetEateryApplicationService';
 
 const eateryRouter = Router();
 const repository = new MongooseEateryRepository();
@@ -34,6 +35,17 @@ const upload = multer({
     },
 });
 
+eateryRouter.get('/', async (req, res) => {
+    try {
+        const getEateryApplicationService = new GetEateryApplicationService(repository);
+        const eateries = await getEateryApplicationService.executeAll();
+        console.log('eateries@eateryRouter', eateries);
+        res.status(200).json(eateries);
+    } catch (error) {
+        res.status(400).json({ message: (error as Error).message });
+    }
+});
+
 eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
     try {
         const {
@@ -55,9 +67,8 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryBusinessEndHour: string;
             eateryRegularHolidays: string;
         };
-        console.log(req.body);
+        console.log('req.body@post-eateryRouter', req.body);
         const eateryRegularHolidays = JSON.parse(eateryRegularHolidaysParsed) as string[];
-        console.log(eateryRegularHolidays);
         let imageUrl: string[] = [];
 
         if (req.files && Array.isArray(req.files)) {
@@ -67,7 +78,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
                         const result = await cloudinary.uploader.upload(file.path, {
                             folder: 'eateries',
                         });
-                        console.log(file.path);
                         await fs.promises.unlink(file.path);
                         return result.secure_url;
                     } catch (error) {
@@ -93,8 +103,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
             eateryRegularHolidays,
             eateryImages: imageUrl || [],
         };
-        console.log(eatery);
-
         const registerEateryApplicationService = new RegisterEateryApplicationService(repository);
         const registerEateryCommand: RegisterEateryCommand = {
             eatery,
@@ -104,7 +112,6 @@ eateryRouter.post('/', upload.array('eateryImages', 2), async (req, res) => {
 
         res.status(200).json({ message: 'POST /eatery' });
     } catch (error) {
-        console.error('Error:', error);
         res.status(400).json({ message: (error as Error).message });
     }
 });
