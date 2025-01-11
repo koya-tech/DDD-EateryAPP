@@ -24,6 +24,8 @@ type EateryCardProps = {
     eateryImages: string[];
 
     onClick: () => void;
+
+    onDelete?: (eateryId: string) => void;
 };
 
 export default EateryCardProps;

@@ -14,6 +14,10 @@ function Discover() {
     ] = useState<{ eateryId: string, location: number[] }[]>([]);
     const [selectedEateryId, setSelectedEateryId] = useState<string | null>(null);
 
+    const handleDelete = (deletedId: string) => {
+        setEateriesData(eateriesData.filter((eatery) => eatery.eateryId !== deletedId));
+    };
+
     useEffect(() => {
         const fetchEateryData = async (): Promise<void> => {
             try {
@@ -62,6 +66,7 @@ function Discover() {
                         eateryLocation={data.eateryLocation}
                         eateryRegularHolidays={data.eateryRegularHolidays}
                         onClick={() => setSelectedEateryId(data.eateryId)}
+                        onDelete={handleDelete}
                     />
                 ))}
             </div>

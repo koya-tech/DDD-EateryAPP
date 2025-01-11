@@ -1,9 +1,9 @@
-import Eatery from '../../../domain/entities/Eatery';
 import { IEateryRepository } from '../../../domain/repository/IEateryRepository';
 import EateryDomainService from '../../../domain/service/EateryDomainService';
+import EateryId from '../../../domain/valueObject/eatery/EateryId';
 
 export type DeleteEateryCommand = {
-    eatery: Eatery;
+    eateryId: string;
 };
 
 export default class DeleteEateryApplicationService {
@@ -13,7 +13,8 @@ export default class DeleteEateryApplicationService {
 
     async execute(command: DeleteEateryCommand): Promise<void> {
         const eateryDomainService = await new EateryDomainService(this.eateryRepository);
-
-        await eateryDomainService.deleteEatery(command.eatery);
+        const eateryId = new EateryId(command.eateryId);
+        console.log('eateryId@DeleteEateryApplicationService', eateryId);
+        await eateryDomainService.deleteEatery(eateryId);
     }
 }

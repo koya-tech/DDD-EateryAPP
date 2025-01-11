@@ -67,6 +67,7 @@ export default class MongooseEateryRepository implements IEateryRepository {
 
     // eslint-disable-next-line class-methods-use-this
     async deleteById(eateryId: EateryId): Promise<void> {
+        console.log('eateryId@MongooseEateryRepository', eateryId);
         const result = await EateryModel.findByIdAndDelete(eateryId.value).exec();
 
         if (!result) {
@@ -76,7 +77,9 @@ export default class MongooseEateryRepository implements IEateryRepository {
 
     // eslint-disable-next-line class-methods-use-this
     async getById(eateryId: EateryId): Promise<Eatery | null> {
+        console.log('eateryId@MongooseEateryRepository', eateryId);
         const foundEatery = await EateryModel.findById(eateryId.value).exec();
+        console.log('foundEatery@MongooseEateryRepository', foundEatery);
         if (!foundEatery) {
             throw new Error('Eatery not found');
         }
@@ -84,6 +87,7 @@ export default class MongooseEateryRepository implements IEateryRepository {
             type: string,
             coordinates: [number, number],
         };
+        console.log('foundLocationArray@MongooseEateryRepository', foundLocationArray);
         const foundEateryBusinessHours = foundEatery._eateryBusinessHours;
 
         return Eatery.reconstruct(
@@ -95,8 +99,8 @@ export default class MongooseEateryRepository implements IEateryRepository {
             // new EateryAddress(foundEatery._eateryAddress),
             new EateryLocation(
                 [
-                    foundLocationArray.coordinates[1],
                     foundLocationArray.coordinates[0],
+                    foundLocationArray.coordinates[1],
                 ],
             ),
             // new EateryCountry(foundEatery._eateryCountry),

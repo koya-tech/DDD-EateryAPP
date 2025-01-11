@@ -23,12 +23,14 @@ export default class EateryDomainService {
         return eatery;
     }
 
-    async deleteEatery(eatery: Eatery): Promise<void> {
-        const targetEatery = await this.eateryRepository.getById(eatery.eateryId);
+    async deleteEatery(eateryId: EateryId): Promise<void> {
+        console.log('eateryId@EateryDomainService', eateryId);
+        const targetEatery = await this.eateryRepository.getById(eateryId);
+        console.log('targetEatery@EateryDomainService', targetEatery);
         if (!targetEatery) {
             throw new Error('Eatery not found.');
         }
-        await this.eateryRepository.deleteById(targetEatery.eateryId);
+        await this.eateryRepository.deleteById(eateryId);
     }
 
     async updateEatery(eatery: Eatery): Promise<void> {

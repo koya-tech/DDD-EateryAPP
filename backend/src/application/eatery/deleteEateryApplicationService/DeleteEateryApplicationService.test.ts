@@ -9,7 +9,7 @@ describe('DeleteEateryApplicationService', () => {
     };
 
     const deleteCommand: Required<DeleteEateryCommand> = {
-        eatery: sampleEatery,
+        eateryId: sampleEatery.eateryId.value,
     };
 
     const repository = new InMemoryEateryRepository();

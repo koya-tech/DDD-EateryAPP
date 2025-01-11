@@ -59,7 +59,7 @@ describe('EateryDomainService', () => {
 
     test('deleteEatery function test', async () => {
         await repository.register(sampleEatery);
-        await eateryDomainService.deleteEatery(sampleEatery);
+        await eateryDomainService.deleteEatery(sampleEatery.eateryId);
         const target = await repository.getById(sampleEatery.eateryId);
         expect(target).toBeNull();
     });
