@@ -28,10 +28,7 @@ export const sampleEatery = Eatery.create(
     sampleEateryName,
     sampleEateryCategory,
     sampleEateryDescription,
-    // sampleEateryRating,
-    // sampleEateryAddress,
     sampleEateryLocation,
-    // sampleEateryCountry,
     sampleEateryBusinessHours,
     sampleEateryRegularHolidays,
     sampleEateryImages,
@@ -53,10 +50,7 @@ export const sampleEateryFromClient = {
 const updatedEateryName = new EateryName('updated Eatery');
 const updatedEateryCategory = new EateryCategory('Western');
 const updatedEateryDescription = new EateryDescription('updated Description');
-// const updatedEateryRating = new EateryRating(4.5);
-// const updatedEateryAddress = new EateryAddress('123 Test St');
 const updatedEateryLocation = new EateryLocation([56, 78]);
-// const updatedEateryCountry = new EateryCountry('JPN');
 const updatedEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const updatedEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const updatedEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
@@ -66,10 +60,7 @@ export const updatedEatery = Eatery.create(
     updatedEateryName,
     updatedEateryCategory,
     updatedEateryDescription,
-    // updatedEateryRating,
-    // updatedEateryAddress,
     updatedEateryLocation,
-    // updatedEateryCountry,
     updatedEateryBusinessHours,
     updatedEateryRegularHolidays,
     updatedEateryImages,
@@ -80,10 +71,7 @@ const differentEateryId = new EateryId('ghijk');
 const differentEateryName = new EateryName('different Eatery');
 const differentEateryCategory = new EateryCategory('Western');
 const differentEateryDescription = new EateryDescription('different Description');
-// const differentEateryRating = new EateryRating(4.5);
-// const differentEateryAddress = new EateryAddress('123 Test St');
 const differentEateryLocation = new EateryLocation([56, 78]);
-// const differentEateryCountry = new EateryCountry('JPN');
 const differentEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
 const differentEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
 const differentEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
@@ -93,10 +81,7 @@ export const differentEatery = Eatery.create(
     differentEateryName,
     differentEateryCategory,
     differentEateryDescription,
-    // differentEateryRating,
-    // differentEateryAddress,
     differentEateryLocation,
-    // differentEateryCountry,
     differentEateryBusinessHours,
     differentEateryRegularHolidays,
     differentEateryImages,

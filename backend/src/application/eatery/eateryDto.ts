@@ -9,13 +9,7 @@ export default class EateryDto {
 
     public readonly eateryDescription: string;
 
-    // public readonly eateryRating: number;
-
-    // public readonly eateryAddress: string;
-
     public readonly eateryLocation: number[];
-
-    // public readonly eateryCountry: string;
 
     public readonly eateryBusinessHours: string[];
 
@@ -28,10 +22,7 @@ export default class EateryDto {
         this.eateryName = eatery.eateryName.value;
         this.eateryCategory = eatery.eateryCategory.value;
         this.eateryDescription = eatery.eateryDescription.value;
-        // this.eateryRating = eatery.eateryRating.value;
-        // this.eateryAddress = eatery.eateryAddress.value;
         this.eateryLocation = eatery.eateryLocation.value;
-        // this.eateryCountry = eatery.eateryCountry.value;
         this.eateryBusinessHours = eatery.eateryBusinessHours.value;
         this.eateryRegularHolidays = eatery.eateryRegularHolidays.value;
         this.eateryImages = eatery.eateryImages.value;

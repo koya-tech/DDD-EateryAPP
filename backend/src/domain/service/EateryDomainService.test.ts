@@ -1,14 +1,11 @@
 import InMemoryEateryRepository from '../../infrastructure/shared/InMemoryEateryRepository';
 import Eatery from '../entities/Eatery';
-// import EateryAddress from '../valueObject/eatery/EateryAddress';
 import EateryBusinessHours from '../valueObject/eatery/EateryBusinessHours';
 import EateryCategory from '../valueObject/eatery/EateryCategory';
-// import EateryCountry from '../valueObject/eatery/EateryCountry';
 import EateryDescription from '../valueObject/eatery/EateryDescription';
 import EateryImages from '../valueObject/eatery/EateryImages';
 import EateryLocation from '../valueObject/eatery/EateryLocation';
 import EateryName from '../valueObject/eatery/EateryName';
-// import EateryRating from '../valueObject/eatery/EateryRating';
 import EateryRegularHolidays from '../valueObject/eatery/EateryRegularHolidays';
 import EateryDomainService from './EateryDomainService';
 import EateryId from '../valueObject/eatery/EateryId';
@@ -21,10 +18,7 @@ describe('EateryDomainService', () => {
     const sampleEateryName = new EateryName('subTest Eatery');
     const sampleEateryCategory = new EateryCategory('Western');
     const sampleEateryDescription = new EateryDescription('Description');
-    // const sampleEateryRating = new EateryRating(4.5);
-    // const sampleEateryAddress = new EateryAddress('123 Test St');
     const sampleEateryLocation = new EateryLocation([56, 78]);
-    // const sampleEateryCountry = new EateryCountry('JPN');
     const sampleEateryBusinessHours = new EateryBusinessHours(['08:00', '17:00']);
     const sampleEateryRegularHolidays = new EateryRegularHolidays(['sunday']);
     const sampleEateryImages = new EateryImages(['image1.jpg', 'image2.jpg']);
@@ -33,10 +27,7 @@ describe('EateryDomainService', () => {
         sampleEateryName,
         sampleEateryCategory,
         sampleEateryDescription,
-        // sampleEateryRating,
-        // sampleEateryAddress,
         sampleEateryLocation,
-        // sampleEateryCountry,
         sampleEateryBusinessHours,
         sampleEateryRegularHolidays,
         sampleEateryImages,
@@ -45,17 +36,6 @@ describe('EateryDomainService', () => {
     beforeEach(async () => {
         repository.clean();
     });
-
-    // test('return true when same eateryName TEST exist in DB', async () => {
-    //     await repository.register(sampleEatery);
-    //     const result = await eateryDomainService.IsEateryNameDuplicate(sampleEatery);
-    //     expect(result).toBeTruthy();
-    // });
-
-    // test('return true when same eateryName TEST does not exist in DB', async () => {
-    //     const result = await eateryDomainService.IsEateryNameDuplicate(sampleEatery);
-    //     expect(result).toBeFalsy();
-    // });
 
     test('deleteEatery function test', async () => {
         await repository.register(sampleEatery);
@@ -81,10 +61,7 @@ describe('EateryDomainService', () => {
             new EateryName('updatedEatery'),
             willUpdateEatery.eateryCategory,
             willUpdateEatery.eateryDescription,
-            // willUpdateEatery.eateryRating,
-            // willUpdateEatery.eateryAddress,
             willUpdateEatery.eateryLocation,
-            // willUpdateEatery.eateryCountry,
             willUpdateEatery.eateryBusinessHours,
             willUpdateEatery.eateryRegularHolidays,
             willUpdateEatery.eateryImages,
