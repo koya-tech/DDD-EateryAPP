@@ -61,8 +61,6 @@ function Home() {
                         </figure>
                     </Link>
                 ))}
-
-                {/* <div>Share Your Special Eatery</div> */}
             </div>
         </>
 

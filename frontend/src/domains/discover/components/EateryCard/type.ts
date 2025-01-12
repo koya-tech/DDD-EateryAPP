@@ -7,13 +7,7 @@ type EateryCardProps = {
 
     eateryDescription: string;
 
-    // eateryRating: number;
-
-    // eateryAddress: string;
-
     eateryLocation: number[];
-
-    // eateryCountry: string;
 
     eateryBusinessStartHour: string;
 

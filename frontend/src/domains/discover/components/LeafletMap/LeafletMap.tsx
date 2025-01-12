@@ -15,13 +15,13 @@ function LeafletMap({
     console.log(selectedEateryId);
     const zoom = 12;
     const defaultIcon = L.icon({
-        iconUrl: 'black-pin.svg', // デフォルトのアイコン
+        iconUrl: 'black-pin.svg',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
     });
 
     const selectedIcon = L.icon({
-        iconUrl: 'red-pin.svg', // 選択中のアイコン
+        iconUrl: 'red-pin.svg',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
     });

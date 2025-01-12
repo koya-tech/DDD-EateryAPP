@@ -25,7 +25,6 @@ function EateryCard({ onClick, onDelete, ...eateryCardProps }: EateryCardProps) 
         eateryName,
         eateryCategory,
         eateryDescription,
-        // eateryLocation,
         eateryBusinessStartHour,
         eateryBusinessEndHour,
         eateryRegularHolidays,
@@ -34,7 +33,7 @@ function EateryCard({ onClick, onDelete, ...eateryCardProps }: EateryCardProps) 
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/v1/eatery/${eateryId}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/eatery/${eateryId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

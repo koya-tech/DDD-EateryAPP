@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -21,16 +19,12 @@ import NameInput from './components/nameInput/NameInput';
 import RegularHolidays from './components/regularHolidays/regularHolidays';
 import ImageInput from './components/imageInput/ImageInput';
 
-// const MAX_UPLOAD_SIZE = 1024 * 1024 * 5; // 5MB
-
 const formSchema = z.object({
     eateryName: z.string().min(1).max(50),
     eateryCategory: z.nativeEnum(EateryCategoryEnum),
     eateryDescription: z.string().min(1).max(500),
-    // eateryAddress: z.string().min(1).max(100),
     eateryLocationLatitude: z.string(),
     eateryLocationLongitude: z.string(),
-    // eateryCountry: z.nativeEnum(EateryCountryEnum),
     eateryBusinessStartHour: z.string(),
     eateryBusinessEndHour: z.string(),
     eateryRegularHolidays: z.array(z.string()),
@@ -58,16 +52,12 @@ function ShareForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             eateryName: '',
-            // eateryCategory: EateryCategoryEnum.Japanese,
             eateryDescription: '',
-            // eateryAddress: '',
             eateryLocationLatitude: '',
             eateryLocationLongitude: '',
-            // eateryCountry: EateryCountryEnum.Japan,
             eateryBusinessStartHour: '',
             eateryBusinessEndHour: '',
             eateryRegularHolidays: [],
-            // eateryImages: FileList[],
         },
     });
 
@@ -86,7 +76,7 @@ function ShareForm() {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/v1/eatery', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/eatery`, {
                 method: 'POST',
                 body: formData,
             });
@@ -106,48 +96,33 @@ function ShareForm() {
       <div className="max-w-3xl mx-auto p-6 space-y-8 bg-white rounded-lg shadow-md">
         <LocationContext.Provider value={locationContextValue}>
           <div className="space-y-6">
-            {/* 店舗名入力 */}
             <div className="space-y-2">
               <NameInput form={form} />
             </div>
-
-            {/* カテゴリー選択 */}
             <div className="space-y-2">
               <CategorySelect form={form} />
             </div>
-
-            {/* 説明文入力 */}
             <div className="space-y-2">
               <DescriptionTextarea
                 form={form}
               />
             </div>
-
-            {/* 地図フォーム */}
             <div className="space-y-2">
               <div className="border rounded-lg p-4 bg-gray-50">
                 <LeafletForm />
               </div>
             </div>
-
-            {/* 営業時間 */}
             <div className="space-y-2">
               <BusinessHourInput form={form} />
             </div>
-
-            {/* 定休日 */}
             <div className="space-y-2">
               <RegularHolidays form={form} />
             </div>
-
-            {/* 画像アップロード */}
             <div className="space-y-2">
               <ImageInput form={form} />
             </div>
           </div>
         </LocationContext.Provider>
-
-        {/* 送信ボタン */}
         <div className="pt-6">
           <Button
             type="submit"

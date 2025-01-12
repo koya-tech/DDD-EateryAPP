@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-// import eatrySample from '../../sampleData';
 import { Link } from 'react-router-dom';
 import EateryCard from '../components/EateryCard/EateryCard';
 import LeafletMap from '../components/LeafletMap/LeafletMap';
 import EateryType from './type';
+import { Skeleton } from '../../../shadcn/ui/skeleton';
 
 function Discover() {
     const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ function Discover() {
     useEffect(() => {
         const fetchEateryData = async (): Promise<void> => {
             try {
-                const response = await fetch('http://localhost:3001/api/v1/eatery', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/eatery`, {
                     method: 'GET',
                 });
                 if (!response.ok) {
@@ -33,7 +33,7 @@ function Discover() {
 
                 const locations = data.map((eatery: EateryType) => ({
                     eateryId: eatery.eateryId,
-                    location: eatery.eateryLocation, // [latitude, longitude]
+                    location: eatery.eateryLocation,
                 }));
                 setLocationArray(locations);
             } catch (err) {
@@ -48,8 +48,20 @@ function Discover() {
         fetchEateryData();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
+
+    if (loading) {
+        return (
+            <div>
+                <div className="basis-1/2 h-screen">
+                    <Skeleton className="w-1/2 h-full rounded-sm" />
+                </div>
+                <div className="basis-1/2 h-screen">
+                    <Skeleton className="w-1/2 h-full rounded-sm" />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex">

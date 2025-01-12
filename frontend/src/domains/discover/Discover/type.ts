@@ -7,13 +7,7 @@ type EateryType = {
 
     eateryDescription: string;
 
-    // eateryRating: number;
-
-    // eateryAddress: string;
-
     eateryLocation: number[];
-
-    // eateryCountry: string;
 
     eateryBusinessHours: string[];
 
