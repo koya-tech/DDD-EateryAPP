@@ -10,8 +10,6 @@ const eaterySchema = new Schema({
     _eateryName: { type: String, required: true },
     _eateryCategory: { type: String, required: true },
     _eateryDescription: { type: String, required: true },
-    // _eateryRating: { type: Number, required: true },
-    // _eateryAddress: { type: String, required: true },
     _eateryLocation: {
         type: {
             type: String,
@@ -29,7 +27,6 @@ const eaterySchema = new Schema({
             },
         },
     },
-    // _eateryCountry: { type: String, required: true },
     _eateryBusinessHours: {
         type: [String],
         required: true,

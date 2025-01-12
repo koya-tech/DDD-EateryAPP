@@ -24,11 +24,4 @@ describe('RegisterEateryApplicationService', () => {
         }
         expect(createdEatery[0]).toEqual(sampleEatery);
     });
-
-    // test('throw error if the same name eatery already exists in DB', async () => {
-    //     await registerEateryApplicationService.execute(registerCommand);
-
-    //     await expect(registerEateryApplicationService.execute(registerCommand))
-    // .rejects.toThrow();
-    // });
 });

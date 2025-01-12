@@ -13,10 +13,7 @@ export default class Eatery {
         private _eateryName: EateryName,
         private _eateryCategory: EateryCategory,
         private _eateryDescription: EateryDescription,
-        // private _eateryRating: EateryRating,
-        // private _eateryAddress: EateryAddress,
         private _eateryLocation: EateryLocation,
-        // private _eateryCountry: EateryCountry,
         private _eateryBusinessHours: EateryBusinessHours,
         private _eateryRegularHolidays: EateryRegularHolidays,
         private _eateryImages: EateryImages,
@@ -27,10 +24,7 @@ export default class Eatery {
         eateryName: EateryName,
         eateryCategory: EateryCategory,
         eateryDescription: EateryDescription,
-        // eateryRating: EateryRating,
-        // eateryAddress: EateryAddress,
         eateryLocation: EateryLocation,
-        // eateryCountry: EateryCountry,
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
@@ -40,10 +34,7 @@ export default class Eatery {
             eateryName,
             eateryCategory,
             eateryDescription,
-            // eateryRating,
-            // eateryAddress,
             eateryLocation,
-            // eateryCountry,
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
@@ -55,10 +46,7 @@ export default class Eatery {
         eateryName: EateryName,
         eateryCategory: EateryCategory,
         eateryDescription: EateryDescription,
-        // eateryRating: EateryRating,
-        // eateryAddress: EateryAddress,
         eateryLocation: EateryLocation,
-        // eateryCountry: EateryCountry,
         eateryBusinessHours: EateryBusinessHours,
         eateryRegularHolidays: EateryRegularHolidays,
         eateryImages: EateryImages,
@@ -68,10 +56,7 @@ export default class Eatery {
             eateryName,
             eateryCategory,
             eateryDescription,
-            // eateryRating,
-            // eateryAddress,
             eateryLocation,
-            // eateryCountry,
             eateryBusinessHours,
             eateryRegularHolidays,
             eateryImages,
@@ -94,21 +79,9 @@ export default class Eatery {
         return this._eateryDescription;
     }
 
-    // get eateryRating(): EateryRating {
-    //     return this._eateryRating;
-    // }
-
-    // get eateryAddress(): EateryAddress {
-    //     return this._eateryAddress;
-    // }
-
     get eateryLocation(): EateryLocation {
         return this._eateryLocation;
     }
-
-    // get eateryCountry(): EateryCountry {
-    //     return this._eateryCountry;
-    // }
 
     get eateryBusinessHours(): EateryBusinessHours {
         return this._eateryBusinessHours;

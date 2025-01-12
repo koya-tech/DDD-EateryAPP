@@ -18,8 +18,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
             _eateryName: eatery.eateryName.value,
             _eateryCategory: eatery.eateryCategory.value,
             _eateryDescription: eatery.eateryDescription.value,
-            // _eateryRating: eatery.eateryRating.value,
-            // _eateryAddress: eatery.eateryAddress.value,
             _eateryLocation: {
                 type: MongodbSetting.geoJsonType,
                 coordinates: [
@@ -27,7 +25,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
                     eatery.eateryLocation.value[1],
                 ],
             },
-            // _eateryCountry: eatery.eateryCountry.value,
             _eateryBusinessHours: eatery.eateryBusinessHours.value,
             _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
             _eateryImages: eatery.eateryImages.value,
@@ -43,8 +40,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 _eateryName: eatery.eateryName.value,
                 _eateryCategory: eatery.eateryCategory.value,
                 _eateryDescription: eatery.eateryDescription.value,
-                // _eateryRating: eatery.eateryRating.value,
-                // _eateryAddress: eatery.eateryAddress.value,
                 _eateryLocation: {
                     type: MongodbSetting.geoJsonType,
                     coordinates: [
@@ -52,7 +47,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
                         eatery.eateryLocation.value[1],
                     ],
                 },
-                // _eateryCountry: eatery.eateryCountry.value,
                 _eateryBusinessHours: eatery.eateryBusinessHours.value,
                 _eateryRegularHolidays: eatery.eateryRegularHolidays.value,
                 _eateryImages: eatery.eateryImages.value,
@@ -91,15 +85,12 @@ export default class MongooseEateryRepository implements IEateryRepository {
             new EateryName(foundEatery._eateryName),
             new EateryCategory(foundEatery._eateryCategory),
             new EateryDescription(foundEatery._eateryDescription),
-            // new EateryRating(foundEatery._eateryRating),
-            // new EateryAddress(foundEatery._eateryAddress),
             new EateryLocation(
                 [
                     foundLocationArray.coordinates[1],
                     foundLocationArray.coordinates[0],
                 ],
             ),
-            // new EateryCountry(foundEatery._eateryCountry),
             new EateryBusinessHours(
                 [
                     foundEateryBusinessHours[0],
@@ -119,7 +110,6 @@ export default class MongooseEateryRepository implements IEateryRepository {
         }
 
         return foundEateries.map((foundEatery) => {
-            // _eateryLocation.coordinates にアクセス
             const foundLocationArray = foundEatery._eateryLocation as unknown as {
                 type: string,
                 coordinates: [number, number],
@@ -132,15 +122,12 @@ export default class MongooseEateryRepository implements IEateryRepository {
                 new EateryName(foundEatery._eateryName),
                 new EateryCategory(foundEatery._eateryCategory),
                 new EateryDescription(foundEatery._eateryDescription),
-                // new EateryRating(foundEatery._eateryRating),
-                // new EateryAddress(foundEatery._eateryAddress),
                 new EateryLocation(
                     [
                         foundLocationArray.coordinates[1],
                         foundLocationArray.coordinates[0],
                     ],
                 ),
-                // new EateryCountry(foundEatery._eateryCountry),
                 new EateryBusinessHours(
                     [
                         foundEateryBusinessHours[0],

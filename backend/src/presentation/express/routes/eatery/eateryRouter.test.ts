@@ -14,17 +14,14 @@ describe('Eatery API Endpoints', () => {
     let app: express.Application;
 
     beforeAll(async () => {
-        // Setup MongoDB Memory Server
         mongoServer = await MongoMemoryServer.create();
         const mongoUri = mongoServer.getUri();
         await mongoose.connect(mongoUri);
 
-        // Setup Express app
         app = express();
         app.use(express.json());
         app.use('/eatery', eateryRouter);
 
-        // Mock Cloudinary upload
         (cloudinary.uploader.upload as jest.Mock).mockImplementation(() => Promise.resolve({
             secure_url: 'https://example.com/test-image.jpg',
         }));
@@ -98,18 +95,6 @@ describe('Eatery API Endpoints', () => {
 
             expect(response.status).toBe(400);
         });
-
-        // it('should handle file size exceeding limit', async () => {
-        //     // Create a mock large file or use a real large file in your __mocks__ directory
-        //     const response = await request(app)
-        //         .post('/eatery')
-        //         .field('eateryName', validEateryData.eateryName)
-        //         .field('eateryCategory', validEateryData.eateryCategory)
-        //         .attach('eateryImages', path.resolve(__dirname, '../__mocks__/large-image.jpg'));
-
-        //     expect(response.status).toBe(404);
-        //     expect(response.body.message).toContain('File too large');
-        // });
     });
 });
 

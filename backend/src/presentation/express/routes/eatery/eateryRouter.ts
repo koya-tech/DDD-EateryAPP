@@ -21,7 +21,7 @@ cloudinary.config({
 
 const upload = multer({
     dest: 'uploads/',
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    limits: { fileSize: 5 * 1024 * 1024 },
     // eslint-disable-next-line consistent-return
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png|gif/;
