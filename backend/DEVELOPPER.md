@@ -1,226 +1,93 @@
 ## CRUD Expression Rule
-| CRUD | Function Name | Return |
-| ---- | ---- | ---- | 
-| C (create) | Register | void |
-| R (read)   | Get | Value |
-| U (update) | Update | void |
-| D (delete) | Delete | void |
+
+| CRUD       | Function Name | Return |
+| ---------- | ------------- | ------ |
+| C (create) | Register      | void   |
+| R (read)   | Get           | Value  |
+| U (update) | Update        | void   |
+| D (delete) | Delete        | void   |
 
 ## Directory Structure
 
-<details><summary>Directory Structure (implementing now 24/10/03)</summary>
+<details><summary>Directory Structure (implementing now 25/01/12)</summary>
 
 ```sh
 src
-|-- application
-|   |-- eatery
-|   |   |-- deleteEateryApplicationService
-|   |   |   |-- DeleteEateryApplicationService.test.ts
-|   |   |   `-- DeleteEateryApplicationService.ts
-|   |   |-- eateryDto.ts
-|   |   |-- registerEateryApplicationService
-|   |   |   |-- RegisterEateryApplicationService.test.ts
-|   |   |   `-- RegisterEateryApplicationService.ts
-|   |   |-- testEateryData.ts
-|   |   `-- updateEateryApplicationService
-|   |       |-- UpdateEateryApplicationService.test.ts
-|   |       `-- UpdateEateryApplicationService.ts
-|   |-- eateryReview
-|   |   |-- deleteEateryReviewApplicationService
-|   |   |   |-- DeleteEateryReviewApplicationService.test.ts
-|   |   |   `-- DeleteEateryReviewApplicationService.ts
-|   |   |-- eateryReviewDto.ts
-|   |   |-- registerEateryReviewApplicationService
-|   |   |   |-- RegisterEateryReviewApplicationService.test.ts
-|   |   |   `-- RegisterEateryReviewApplicationService.ts
-|   |   |-- testEateryReviewData.ts
-|   |   `-- updateEateryReviewApplicationService
-|   |       |-- UpdateEateryReviewApplicationService.test.ts
-|   |       `-- UpdateEateryReviewApplicationService.ts
-|   `-- user
-|       |-- deleteUserApplicationService
-|       |   |-- DeleteUserApplicationService.test.ts
-|       |   `-- DeleteUserApplicationService.ts
-|       |-- getUserApplicationService
-|       |   `-- GetUserApplicationService.ts
-|       |-- registerUserApplicationService
-|       |   |-- RegisterUserApplicationService.test.ts
-|       |   `-- RegisterUserApplicationService.ts
-|       |-- testUserData.ts
-|       |-- updateUserApplicationService
-|       |   |-- UpdateUserApplicationService.test.ts
-|       |   `-- UpdateUserApplicationService.ts
-|       `-- userDto.ts
-|-- domain
-|   |-- entities
-|   |   |-- Eatery.test.ts
-|   |   |-- Eatery.ts
-|   |   |-- EateryReview.test.ts
-|   |   |-- EateryReview.ts
-|   |   |-- User.test.ts
-|   |   `-- User.ts
-|   |-- repository
-|   |   |-- IEateryRepository.ts
-|   |   |-- IEateryReviewRepository.ts
-|   |   `-- IUserRepository.ts
-|   |-- service
-|   |   |-- EateryDomainService.test.ts
-|   |   |-- EateryDomainService.ts
-|   |   |-- EateryReviewDomainService.test.ts
-|   |   |-- EateryReviewDomainService.ts
-|   |   |-- UserDomainService.test.ts
-|   |   `-- UserDomainService.ts
-|   `-- valueObject
-|       |-- AbstractValueObject.ts
-|       |-- eatery
-|       |   |-- EateryAddress.ts
-|       |   |-- EateryAdress.test.ts
-|       |   |-- EateryBusinessHours.test.ts
-|       |   |-- EateryBusinessHours.ts
-|       |   |-- EateryCategory.test.ts
-|       |   |-- EateryCategory.ts
-|       |   |-- EateryCountry.test.ts
-|       |   |-- EateryCountry.ts
-|       |   |-- EateryDescription.test.ts
-|       |   |-- EateryDescription.ts
-|       |   |-- EateryId.test.ts
-|       |   |-- EateryId.ts
-|       |   |-- EateryImages.test.ts
-|       |   |-- EateryImages.ts
-|       |   |-- EateryLocation.test.ts
-|       |   |-- EateryLocation.ts
-|       |   |-- EateryName.test.ts
-|       |   |-- EateryName.ts
-|       |   |-- EateryRating.test.ts
-|       |   |-- EateryRating.ts
-|       |   |-- EateryRegularHolidays.test.ts
-|       |   `-- EateryRegularHolidays.ts
-|       |-- eateryReview
-|       |   |-- EateryReviewComment.test.ts
-|       |   |-- EateryReviewComment.ts
-|       |   |-- EateryReviewId.test.ts
-|       |   |-- EateryReviewId.ts
-|       |   |-- EateryReviewRating.test.ts
-|       |   `-- EateryReviewRating.ts
-|       `-- user
-|           |-- UserId.test.ts
-|           |-- UserId.ts
-|           |-- UserImage.test.ts
-|           |-- UserImage.ts
-|           |-- UserName.test.ts
-|           |-- UserName.ts
-|           |-- UserPassword.test.ts
-|           `-- UserPassword.ts
-|-- external
-|   `-- mongoose
-|       `-- model
-|           |-- EateryModel.ts
-|           |-- EateryReviewModel.ts
-|           `-- UserModel.ts
-|-- index.ts
-|-- infrastructure
-|   |-- MongooseEateryRepository.test.ts
-|   |-- MongooseEateryRepository.ts
-|   |-- MongooseEateryReviewRepository.test.ts
-|   |-- MongooseEateryReviewRepository.ts
-|   |-- MongooseUserRepository.test.ts
-|   |-- MongooseUserRepository.ts
-|   `-- shared
-|       |-- InMemoryEateryRepository.ts
-|       |-- InMemoryEateryReviewRepository.ts
-|       `-- InMemoryUserRepository.ts
-`-- presentation
-    `-- express
+|-- ./__mocks__
+|   |-- ./__mocks__/invalid.txt
+|   |-- ./__mocks__/test-image-1.png
+|   `-- ./__mocks__/test-image-2.png
+|-- ./application
+|   `-- ./application/eatery
+|       |-- ./application/eatery/deleteEateryApplicationService
+|       |   |-- ./application/eatery/deleteEateryApplicationService/DeleteEateryApplicationService.test.ts
+|       |   `-- ./application/eatery/deleteEateryApplicationService/DeleteEateryApplicationService.ts
+|       |-- ./application/eatery/eateryDto.ts
+|       |-- ./application/eatery/getEateryApplicationService
+|       |   |-- ./application/eatery/getEateryApplicationService/GetEateryApplicationService.test.ts
+|       |   `-- ./application/eatery/getEateryApplicationService/GetEateryApplicationService.ts
+|       |-- ./application/eatery/registerEateryApplicationService
+|       |   |-- ./application/eatery/registerEateryApplicationService/RegisterEateryApplicationService.test.ts
+|       |   `-- ./application/eatery/registerEateryApplicationService/RegisterEateryApplicationService.ts
+|       |-- ./application/eatery/testEateryData.ts
+|       `-- ./application/eatery/updateEateryApplicationService
+|           |-- ./application/eatery/updateEateryApplicationService/UpdateEateryApplicationService.test.ts
+|           `-- ./application/eatery/updateEateryApplicationService/UpdateEateryApplicationService.ts
+|-- ./domain
+|   |-- ./domain/entities
+|   |   |-- ./domain/entities/Eatery.test.ts
+|   |   `-- ./domain/entities/Eatery.ts
+|   |-- ./domain/repository
+|   |   `-- ./domain/repository/IEateryRepository.ts
+|   |-- ./domain/service
+|   |   |-- ./domain/service/EateryDomainService.test.ts
+|   |   `-- ./domain/service/EateryDomainService.ts
+|   `-- ./domain/valueObject
+|       |-- ./domain/valueObject/AbstractValueObject.ts
+|       `-- ./domain/valueObject/eatery
+|           |-- ./domain/valueObject/eatery/EateryAddress.ts
+|           |-- ./domain/valueObject/eatery/EateryAdress.test.ts
+|           |-- ./domain/valueObject/eatery/EateryBusinessHours.test.ts
+|           |-- ./domain/valueObject/eatery/EateryBusinessHours.ts
+|           |-- ./domain/valueObject/eatery/EateryCategory.test.ts
+|           |-- ./domain/valueObject/eatery/EateryCategory.ts
+|           |-- ./domain/valueObject/eatery/EateryCountry.test.ts
+|           |-- ./domain/valueObject/eatery/EateryCountry.ts
+|           |-- ./domain/valueObject/eatery/EateryDescription.test.ts
+|           |-- ./domain/valueObject/eatery/EateryDescription.ts
+|           |-- ./domain/valueObject/eatery/EateryId.test.ts
+|           |-- ./domain/valueObject/eatery/EateryId.ts
+|           |-- ./domain/valueObject/eatery/EateryImages.test.ts
+|           |-- ./domain/valueObject/eatery/EateryImages.ts
+|           |-- ./domain/valueObject/eatery/EateryLocation.test.ts
+|           |-- ./domain/valueObject/eatery/EateryLocation.ts
+|           |-- ./domain/valueObject/eatery/EateryName.test.ts
+|           |-- ./domain/valueObject/eatery/EateryName.ts
+|           |-- ./domain/valueObject/eatery/EateryRating.test.ts
+|           |-- ./domain/valueObject/eatery/EateryRating.ts
+|           |-- ./domain/valueObject/eatery/EateryRegularHolidays.test.ts
+|           `-- ./domain/valueObject/eatery/EateryRegularHolidays.ts
+|-- ./external
+|   `-- ./external/mongoose
+|       `-- ./external/mongoose/model
+|           `-- ./external/mongoose/model/EateryModel.ts
+|-- ./infrastructure
+|   |-- ./infrastructure/MongodbSetting.ts
+|   |-- ./infrastructure/MongooseEateryRepository.test.ts
+|   |-- ./infrastructure/MongooseEateryRepository.ts
+|   `-- ./infrastructure/shared
+|       `-- ./infrastructure/shared/InMemoryEateryRepository.ts
+`-- ./presentation
+    |-- ./presentation/apiTest
+    |   `-- ./presentation/apiTest/userTest.http
+    `-- ./presentation/express
+        |-- ./presentation/express/index.ts
+        `-- ./presentation/express/routes
+            |-- ./presentation/express/routes/eatery
+            |   |-- ./presentation/express/routes/eatery/eateryRouter.test.ts
+            |   `-- ./presentation/express/routes/eatery/eateryRouter.ts
+            `-- ./presentation/express/routes/index.ts
 
 ```
-
-</details>
-
-<br />
-
-<details><summary>Directory Structure (at the planning * possible to change)</summary>
-
-/src
-  /domain
-    /entities
-      User.ts            // ユーザーエンティティ（名前、メールアドレス、パスワードなどの属性を持つ）
-      Eatery.ts      // 飲食店エンティティ（名前、住所、カテゴリなどの属性を持つ）
-      EateryReview.ts          // レビューエンティティ（レビュー内容、評価、投稿者などの属性を持つ）
-    /valueObjects
-      Email.ts           // メール値オブジェクト（メールアドレスのバリデーションなど）
-      Rating.ts          // 評価値オブジェクト（評価スコアの範囲など）
-    /repositories
-      IUserRepository.ts  // ユーザーリポジトリインターフェース
-      IEateryRepository.ts  // 飲食店リポジトリインターフェース
-      IReviewRepository.ts  // レビューリポジトリインターフェース
-    /services
-      UserService.ts      // ユーザードメインサービス
-      EateryService.ts // 飲食店ドメインサービス
-    /events
-      EateryAddedEvent.ts // 飲食店追加イベント
-      ReviewAddedEvent.ts     // レビュー追加イベント
-
-アプリケーション層
-  /application
-    /services
-      UserApplicationService.ts   // ユーザーアプリケーションサービス
-      EateryApplicationService.ts // 飲食店アプリケーションサービス
-      ReviewApplicationService.ts    // レビューアプリケーションサービス
-    /dto
-      UserDTO.ts                  // ユーザーデータ転送オブジェクト
-      EateryDTO.ts            // 飲食店データ転送オブジェクト
-      ReviewDTO.ts                // レビューデータ転送オブジェクト
-    /commands
-      AddEateryCommand.ts     // 飲食店追加コマンド
-      AddReviewCommand.ts         // レビュー追加コマンド
-    /queries
-      GetEateryQuery.ts       // 飲食店取得クエリ
-      GetUserQuery.ts             // ユーザー取得クエリ
-    /handlers
-      AddEateryHandler.ts     // 飲食店追加ハンドラ
-      AddReviewHandler.ts         // レビュー追加ハンドラ
-
-インフラストラクチャ層
-  /infrastructure
-    /repositories
-      UserRepository.ts           // ユーザーリポジトリの具体的な実装
-      EateryRepository.ts     // 飲食店リポジトリの具体的な実装
-      ReviewRepository.ts         // レビューリポジトリの具体的な実装
-    /persistence
-      DatabaseConnection.ts       // データベース接続設定
-    /api
-      ExternalEateryService.ts // 外部飲食店サービス
-    /config
-      AppConfig.ts                // アプリケーション設定
-    /services
-      NotificationService.ts      // 通知サービス（例：レビュー追加通知）
-
-インターフェース層（プレゼンテーション層）
-  /interface
-    /controllers
-      UserController.ts           // ユーザーコントローラー
-      EateryController.ts     // 飲食店コントローラー
-      ReviewController.ts         // レビューコントローラー
-    /views
-      EateryView.ts           // 飲食店ビュー
-      ReviewView.ts               // レビュービュー
-    /dto
-      UserRequestDTO.ts           // ユーザーリクエストDTO
-      UserResponseDTO.ts          // ユーザーレスポンスDTO
-      EateryRequestDTO.ts     // 飲食店リクエストDTO
-      EateryResponseDTO.ts    // 飲食店レスポンスDTO
-      ReviewRequestDTO.ts         // レビューリクエストDTO
-      ReviewResponseDTO.ts        // レビューレスポンスDTO
-
-共通層
-  /shared
-    /utils
-      DateUtils.ts                // 日付ユーティリティ
-      ValidationUtils.ts          // バリデーションユーティリティ
-    /exceptions
-      NotFoundException.ts        // 例外クラス（エンティティが見つからない場合）
-      ValidationException.ts      // 例外クラス（バリデーションエラーの場合）
-    /constants
-      AppConstants.ts             // アプリケーション定数
 
 </details>

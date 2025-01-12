@@ -1,3 +1,4 @@
+' user domain implementation - pending
 @startuml UserAggregation
 
 title UserAggregation

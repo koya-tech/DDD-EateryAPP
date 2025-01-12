@@ -3,57 +3,35 @@
 title Eatery Aggregation
 
 package "EateryAggregation" {
-    ' 1. エンティティの定義
     class Eatery << (R,red) RootEntity >> {
         eateryId
-        storeName
-        storeDescription
-        storeScore
-        conuntry
-        storeaddress
-        location
-        storeImages
+        eateryName
+        eateryDescription
+        eateryScore
+        eateryLocation
+        eateryImages
         businessHours
-        genre
+        category
         RegularHoliday
-        createdAt
-        updatedAt
-    }
-
-    class EateryList << (E,green) Entity >> {
-        eateryListId
-        listType
     }
 
     class eateryId {
         + value: string
     }
 
-    class storeName {
+    class eateryName {
         + value: string
     }
 
-    class storeDescription {
+    class eateryDescription {
         + value: string
     }
 
-    class storeScore {
-        + value: number
-    }
-
-    class conuntry {
+    class eateryLocation {
         + value: string
     }
 
-    class storeaddress {
-        + value: string
-    }
-
-    class location {
-        + value: string
-    }
-
-    class storeImages {
+    class eateryImages {
         + value: number
     }
 
@@ -61,48 +39,22 @@ package "EateryAggregation" {
         + value: number
     }
 
-    class genre {
-        + value: Enum { Western, Chinese, Japanese, Italian, Others }
+    class category {
+        + value: string
     }
 
     class RegularHoliday {
         + value: string
     }
 
-    class createdAt {
-        + value: time
-    }
-
-    class updatedAt {
-        + value: time
-    }
-
-    class eateryListId {
-        + value: string
-    }
-
-    class listType {
-        + value: Enum { myEatery, favorite}
-    }
-
-    Eatery "1" -down- "1" EateryList : has >
     Eatery *-down- eateryId
-    Eatery *-down- storeName
-    Eatery *-down- storeDescription
-    Eatery *-down- storeScore
-    Eatery *-down- conuntry
-    Eatery *-down- storeaddress
-    Eatery *-down- location
-    Eatery *-down- storeImages
+    Eatery *-down- eateryName
+    Eatery *-down- eateryDescription
+    Eatery *-down- eateryLocation
+    Eatery *-down- eateryImages
     Eatery *-down- businessHours
-    Eatery *-down- genre
+    Eatery *-down- category
     Eatery *-down- RegularHoliday
-    Eatery *-down- createdAt
-    Eatery *-down- updatedAt
-
-    EateryList *-down- eateryListId
-    EateryList *-down- listType
-    EateryList *-down- eateryId
 
 }
 

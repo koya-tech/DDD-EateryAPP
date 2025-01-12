@@ -175,7 +175,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Eatery"
 
-  "/api/v1/eateries":
+  "/api/v1/eatery":
     get:
       tags:
         - eatery
@@ -348,15 +348,11 @@ components:
           type: string
         eateryDescription:
           type: string
-        eateryRating:
-          type: number
-        eateryAddress:
-          type: string
         eateryLocation:
           type: array
-        eateryCountry:
-          type: string
         eaterBusinessHours:
+          type: array
+        eateryRegularHoliday:
           type: array
         eateryImage:
           type: array
@@ -365,10 +361,7 @@ components:
         - eateryName
         - eateryCategory
         - eateryDescription
-        - eateryRating
-        - eateryAddress
         - eateryLocation
-        - eateryCountry
         - eateryBusinessHours
         - eateryRegularHoliday
         - eateryImage
