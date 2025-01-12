@@ -49,68 +49,88 @@ function EateryCard({ onClick, onDelete, ...eateryCardProps }: EateryCardProps) 
     };
 
     return (
-        <Card className="flex">
-            <div className="basis-2/5">
-                <div
-                    className="p-1"
-                    onClick={onClick}
-                    role="button"
-                    tabIndex={0}
-                    onKeyPress={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            onClick();
-                        }
-                    }}
-                >
-                    <img className="rounded-lg h-full object-cover" src={eateryImages[0]} alt={eateryName} />
+        <Card className="flex h-[28rem] overflow-hidden">
+        <div className="basis-2/5 bg-gray-100">
+            <div
+            className="h-full w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onClick={onClick}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                onClick();
+                }
+            }}
+            >
+            <img
+                className="h-full w-full object-cover"
+                src={eateryImages[0]}
+                alt={eateryName}
+            />
+            </div>
+        </div>
+
+        <div className="basis-3/5 flex flex-col overflow-hidden">
+            <CardHeader className="flex-none pb-4">
+            <div className="flex justify-between items-start gap-4">
+                <div className="min-w-0">
+                <CardTitle className="text-2xl font-bold text-gray-900 truncate">
+                    {eateryName}
+                </CardTitle>
+                <p className="text-sm text-gray-600">{eateryCategory}</p>
+                </div>
+                <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button variant="ghost" size="icon" className="flex-none">
+                    <img src="/trush.svg" alt="Delete" className="w-5 h-5" />
+                    </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="sm:max-w-md">
+                    <AlertDialogHeader>
+                    <AlertDialogTitle className="text-lg font-semibold">
+                        Delete Eatery?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-center space-y-2">
+                        <p>You cannot undo this action.</p>
+                        <p>Are you sure you want to delete</p>
+                        <p className="font-medium">{eateryName}</p>
+                        <p>?</p>
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="sm:justify-center gap-2">
+                        <AlertDialogCancel className="mt-0">Cancel</AlertDialogCancel>
+{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                        <AlertDialogAction onClick={handleDelete}>
+                        Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+                </AlertDialog>
+            </div>
+            </CardHeader>
+
+            <CardContent className="flex-1 flex flex-col gap-4 overflow-y-auto">
+            <CardDescription className="line-clamp-2 text-sm text-gray-600">
+                {eateryDescription}
+            </CardDescription>
+            <div className="space-y-4">
+                <div>
+                <h3 className="font-medium text-gray-900 mb-1">営業時間</h3>
+                <p className="text-sm text-gray-600">
+                    {`${eateryBusinessStartHour} ~ ${eateryBusinessEndHour}`}
+                </p>
+                </div>
+                <div>
+                    <h3 className="font-medium text-gray-900 mb-1">定休日</h3>
+                    <div className="space-y-1">
+                        {eateryRegularHolidays.map((holiday) => (
+                        <p key={holiday} className="text-sm text-gray-600">{holiday}</p>
+                        ))}
+                    </div>
                 </div>
             </div>
-            <div className="basis-3/5">
-                <CardHeader>
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <CardTitle className="text-3xl">{eateryName}</CardTitle>
-                            <p>{eateryCategory}</p>
-                        </div>
-                        <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button variant="destructive" size="icon">
-                                    <img src="/icons/black-pin.svg" alt="Delete" />
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Delete Eatery?</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        You cannot undo this action.
-                                        Are you sure you want to delete
-                                        <br />
-                                        {eateryName}
-                                        <br />
-                                        ?
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-{/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                                    <AlertDialogAction onClick={handleDelete}>
-                                        Delete
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    <CardDescription className="line-clamp-2">{eateryDescription}</CardDescription>
-                    <p>営業時間</p>
-                    <p>{`${eateryBusinessStartHour} ~ ${eateryBusinessEndHour}`}</p>
-                    <p>定休日</p>
-                    {eateryRegularHolidays.map((holiday) => (
-                        <p key={holiday}>{holiday}</p>
-                    ))}
-                </CardContent>
-            </div>
+            </CardContent>
+        </div>
         </Card>
     );
 }

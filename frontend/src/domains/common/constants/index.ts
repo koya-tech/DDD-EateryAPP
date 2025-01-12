@@ -15,10 +15,6 @@ export const routeList = [
         route: '/about',
         label: 'About',
     },
-    {
-        route: '/profile',
-        label: 'Profile',
-    },
 ];
 
 export const serviceInfoList = [

@@ -11,31 +11,31 @@ import { EateryFormProps } from '../type';
 const daysOfWeek = [
     {
         id: 'sunday',
-        label: 'sunday',
+        label: 'SUNDAY',
     },
     {
         id: 'monday',
-        label: 'monday',
+        label: 'MONDAY',
     },
     {
         id: 'tuesday',
-        label: 'tuesday',
+        label: 'TUESDAY',
     },
     {
         id: 'wednesday',
-        label: 'wednesday',
+        label: 'WEDNESDAY',
     },
     {
         id: 'thursday',
-        label: 'thursday',
+        label: 'THURSDAY',
     },
     {
         id: 'friday',
-        label: 'friday',
+        label: 'FRIDAY',
     },
     {
         id: 'saturday',
-        label: 'saturday',
+        label: 'SATURDAY',
     },
 ] as const;
 
@@ -52,37 +52,41 @@ function RegularHolidays({ form }: EateryFormProps) {
                             Select the holiday that the store is closed.
                         </FormDescription>
                     </div>
-                    {daysOfWeek.map((day) => (
-                        <FormField
-                            key={day.id}
-                            control={form.control}
-                            name="eateryRegularHolidays"
-                            render={({ field }) => (
-                                <FormItem
-                                    key={day.id}
-                                    className="flex items-center space-x-4"
-                                >
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value.includes(day.id)}
-                                            onCheckedChange={(checked) => (checked
-                                                ? field.onChange(
-                                                    [...field.value, day.id],
-                                                )
-                                                : field.onChange(
-                                                    field.value.filter(
-                                                        (item) => item !== day.id,
-                                                    ),
-                                                ))}
-                                        />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                        {day.label}
-                                    </FormLabel>
-                                </FormItem>
-                            )}
-                        />
-                    ))}
+                    <div className="flex flex-wrap gap-4">
+                        {daysOfWeek.map((day) => (
+                            <FormField
+                                key={day.id}
+                                control={form.control}
+                                name="eateryRegularHolidays"
+                                render={({ field }) => (
+                                    <FormItem
+                                        key={day.id}
+                                        className="flex items-center space-x-2"
+                                    >
+                                        <FormControl>
+                                            <Checkbox
+                                                checked={field.value.includes(day.id)}
+                                                onCheckedChange={(checked) => (checked
+                                                    ? field.onChange(
+                                                        [...field.value, day.id],
+                                                    )
+                                                    : field.onChange(
+                                                        field.value.filter(
+                                                            (item) => item !== day.id,
+                                                        ),
+                                                    ))}
+                                            />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">
+                                            <div className="mb-2">
+                                                {day.label}
+                                            </div>
+                                        </FormLabel>
+                                    </FormItem>
+                                )}
+                            />
+                        ))}
+                    </div>
                 </FormItem>
             )}
         />

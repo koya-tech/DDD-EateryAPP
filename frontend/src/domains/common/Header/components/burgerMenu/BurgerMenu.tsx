@@ -8,14 +8,6 @@ import {
 } from '../../../../../shadcn/ui/dropdown-menu';
 import { routeList } from '../../../constants/index';
 
-const routeListForBurger = routeList.concat();
-routeListForBurger.push(
-    {
-        route: '/auth',
-        label: 'Login',
-    },
-);
-
 function BulgerMenu() {
     const location = useLocation();
     const isHome = location.pathname === '/';
@@ -28,7 +20,7 @@ function BulgerMenu() {
                         : <IoMenu size="2rem" />}
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    {routeListForBurger.map((item) => (
+                    {routeList.map((item) => (
                         <Link to={item.route}>
                             <DropdownMenuItem>{item.label}</DropdownMenuItem>
                         </Link>

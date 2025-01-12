@@ -1,38 +1,44 @@
 // eslint-disable-next-line import/extensions
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import experienceList from './constants/index';
 
 function Home() {
-    // const word = words.split('');
-
-    // const textanimate = word.map((txt, index) => (
-    //     <motion.div
-    //         initial={{ opacity: 0 }}
-    //         animate={{ opacity: 1 }}
-    //         transition={{ duration: 0.5, delay: index * 0.05 }}
-    //         className="text-white"
-    //     // key={'text'}
-    //     >
-    //         {txt}
-    //     </motion.div>
-    // ));
-
+    const [imageLoaded, setImageLoaded] = useState(false);
     return (
         <>
             <div className="bg-black">
-                {/* <div className="flex justify-center">
-                    {textanimate}
-                </div> */}
-                <div className="flex justify-center pt-24 pb-20">
-                    <img src="/home1.jpg" alt="home1Image" className="rounded-3xl w-3/4" />
+                <div className="flex justify-center pt-16 pb-20 relative">
+                <img
+                    src="/home1.jpg"
+                    alt="home1Image"
+                    className={`rounded-3xl w-3/4 transition-opacity duration-500 ${
+                    imageLoaded ? 'opacity-50' : 'opacity-0'
+                    }`}
+                    onLoad={() => setImageLoaded(true)}
+                />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="text-center">
+                    <div
+                        className={`text-2xl md:text-6xl text-white font-light tracking-wide italic transition-opacity duration-500 ${
+                        imageLoaded
+                            ? 'animate-fade-up opacity-100'
+                            : 'opacity-0'
+                        }`}
+                        style={{
+                        animationDelay: imageLoaded ? '700ms' : '0ms',
+                        }}
+                    >
+                        The best place to find and share your next meal
+                    </div>
+                    </div>
                 </div>
-
+                </div>
             </div>
-            <h2 className="flex pt-24 pb-12 justify-center text-2xl">
+            <h2 className="flex pt-24 pb-12 justify-center text-2xl md:text-4xl font-bold">
                 Dinebnb Experiences
             </h2>
             <div className="md:flex justify-evenly pb-24">
-                {/* <div>Discover Your Special Eatery</div> */}
                 {experienceList.map((item) => (
                     <Link to={item.url} className="w-1/2">
                         <figure className="relative h-96 px-10 hover:drop-shadow-2xl py-5">

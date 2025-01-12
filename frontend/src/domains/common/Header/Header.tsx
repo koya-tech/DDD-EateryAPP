@@ -1,6 +1,5 @@
 import { BiBowlRice } from 'react-icons/bi';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '../../../shadcn/ui/button';
 import { routeList } from '../constants/index';
 import BulgerMenu from './components/burgerMenu/BurgerMenu';
 
@@ -21,11 +20,6 @@ function Header() {
                     {routeList.map((item) => (
                         <Link to={item.route} className="px-2 text-xl text-white mix-blend-difference">{item.label}</Link>
                     ))}
-                </div>
-                <div className="hidden md:flex">
-                    <Link to="/auth">
-                        <Button className="bg-black">Login</Button>
-                    </Link>
                 </div>
             </header>
         </div>

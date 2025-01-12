@@ -102,18 +102,63 @@ function ShareForm() {
     };
 
     return (
-        <Form {...form}>
-            <LocationContext.Provider value={locationContextValue}>
-                <NameInput form={form} />
-                <CategorySelect form={form} />
-                <DescriptionTextarea form={form} />
+    <Form {...form}>
+      <div className="max-w-3xl mx-auto p-6 space-y-8 bg-white rounded-lg shadow-md">
+        <LocationContext.Provider value={locationContextValue}>
+          <div className="space-y-6">
+            {/* 店舗名入力 */}
+            <div className="space-y-2">
+              <NameInput form={form} />
+            </div>
+
+            {/* カテゴリー選択 */}
+            <div className="space-y-2">
+              <CategorySelect form={form} />
+            </div>
+
+            {/* 説明文入力 */}
+            <div className="space-y-2">
+              <DescriptionTextarea
+                form={form}
+              />
+            </div>
+
+            {/* 地図フォーム */}
+            <div className="space-y-2">
+              <div className="border rounded-lg p-4 bg-gray-50">
                 <LeafletForm />
-                <BusinessHourInput form={form} />
-                <RegularHolidays form={form} />
-                <ImageInput form={form} />
-            </LocationContext.Provider>
-            <Button type="submit" onClick={form.handleSubmit(onSubmit)}>Submit</Button>
-        </Form>
+              </div>
+            </div>
+
+            {/* 営業時間 */}
+            <div className="space-y-2">
+              <BusinessHourInput form={form} />
+            </div>
+
+            {/* 定休日 */}
+            <div className="space-y-2">
+              <RegularHolidays form={form} />
+            </div>
+
+            {/* 画像アップロード */}
+            <div className="space-y-2">
+              <ImageInput form={form} />
+            </div>
+          </div>
+        </LocationContext.Provider>
+
+        {/* 送信ボタン */}
+        <div className="pt-6">
+          <Button
+            type="submit"
+            onClick={form.handleSubmit(onSubmit)}
+            className="w-full bg-black hover:bg-black/50 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+          >
+            SHARE
+          </Button>
+        </div>
+      </div>
+    </Form>
     );
 }
 
