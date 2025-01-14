@@ -3,6 +3,9 @@
 Welcome to the Restaurant Sharing App! This application allows users to share their favorite restaurants and view restaurant locations on an interactive map. The app was built with a focus on scalability and maintainability using Domain-Driven Design (DDD).
 
 <!-- ![App Screenshot](./dinebnb-main.png) -->
+
+[Demo Movie](https://drive.google.com/file/d/1dreMb9EdNdqO-K8yh5e2PDT4L940qCqa/view?usp=sharing)
+
 <img src="./dinebnb-main.png" alt="App Screenshot" width="500" />
 
 ## Key Features
